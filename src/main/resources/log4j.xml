@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+   
+<!--     
+    <appender name="graylog" class="org.graylog2.log.GelfAppender">
+        <param name="graylogHost" value="${gelf.host}"/>       
+        <param name="extractStacktrace" value="true"/>       
+        <param name="Facility" value="webadmin-cucumber-selenium"/>       
+        <param name="Threshold" value="${log.priority.value.main}"/>
+    </appender>
+    
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %C{2} (%F:%L) - %m%n" />
+		</layout>
+	</appender>
+-->  
+	<appender name="WEBADMIN_TEST_APPENDER" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="webadmin_test.log" />
+		<param name="Append" value="true" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p [%t] %C{7} (%F:%L) - %m%n" />
+		</layout>
+	</appender>   
+	
+	<logger name="npg.webadmin" additivity="false">
+		<priority value="info" />
+		<appender-ref ref="WEBADMIN_TEST_APPENDER" />		
+	</logger>
+  
+	<root>
+		<priority value="INFO" />
+		<!--  appender-ref ref="graylog" / -->
+	</root>
+
+</log4j:configuration>

@@ -1,0 +1,7 @@
+.classpath
+.project
+.settings/
+chromedriver.log
+webadmin_test.log
+reports/
+target/
