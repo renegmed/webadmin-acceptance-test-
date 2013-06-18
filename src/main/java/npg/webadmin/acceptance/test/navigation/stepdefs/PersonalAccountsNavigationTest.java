@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 @Cucumber.Options(
   features={"target/classes/personal_accounts_navigation.feature"},
   tags = {"@wip"},
-  format = "html:target/Personal_Accounts_Navigation_Report")
+  format = "json:target/Personal_Accounts_Navigation_Report.json")
 public class PersonalAccountsNavigationTest {
 	
 }
