@@ -7,7 +7,7 @@ Feature: Webadmin User searches and navigate Personal Account pages
        so I can view and update information related to the account
   
     
-  ${at.sign}wip  
+   
   Scenario: user navigates MyAccount pages     
     Given user is logged-in as "${myaccount.user.username}" password "${myaccount.user.password}" for user personal account search  
 
