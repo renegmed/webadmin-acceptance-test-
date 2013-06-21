@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 @Cucumber.Options(
   features={"target/classes/webadmin_login.feature"},
   //tags = {"@wip"},
-  format = {"json:target/WebAdmin_Login_Test_Report.json"})
+  format = "html:target/Login_Test_Report")
 public class WebAdminLogInTest {
 	
 }
