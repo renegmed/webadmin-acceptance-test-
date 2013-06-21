@@ -10,20 +10,7 @@
         <run.browser>${browser}</run.browser>	
         <selenium.version>2.31.0</selenium.version>	
 		<cucumber.version>1.1.2</cucumber.version>	
-	</properties>
-  	<pluginRepositories>
-			<pluginRepository>  
-				<id>codehaus snapshot repository</id>  
- 				<url>http://snapshots.repository.codehaus.org/</url>  
-				<releases>  
-					<enabled>true</enabled>  
-				</releases>  
-				<snapshots>
-				    <enabled>true</enabled>				   
-				</snapshots>  
-			</pluginRepository>  
-  	</pluginRepositories>
-  			
+	</properties>  
 	<dependencies>
 		<dependency>
 		    <groupId>info.cukes</groupId>
@@ -84,12 +71,7 @@
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
-			</plugin>			
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>selenium-maven-plugin</artifactId>
-                <version>2.31.0</version>
-            </plugin>
+			</plugin>			 
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
