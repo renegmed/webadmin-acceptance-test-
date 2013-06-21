@@ -11,30 +11,7 @@
         <selenium.version>2.31.0</selenium.version>	
 		<cucumber.version>1.1.2</cucumber.version>	
 	</properties>
-
-    <repositories>
-        <repository>
-            <id>repo.jenkins-ci.org</id>
-            <url>http://repo.jenkins-ci.org/public/</url>
-        </repository>
-        <repository>
-            <id>sonatype-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </repository>        
-        <repository>
-        	<id>repo.bodar.com</id>
-        	<url>http://repo.bodar.com</url>
-    </repository>
-    
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>repo.jenkins-ci.org</id>
-            <url>http://repo.jenkins-ci.org/public/</url>
-        </pluginRepository>
-    </pluginRepositories>
-	
+  
 	<dependencies>
 		<dependency>
 		    <groupId>info.cukes</groupId>
@@ -79,16 +56,7 @@
 			<artifactId>apache-log4j-extras</artifactId>
 			<version>1.0</version>
 		</dependency>
-        <dependency>
-            <groupId>net.masterthought</groupId>
-            <artifactId>cucumber-reporting</artifactId>
-            <version>0.0.21</version>
-        </dependency>
-        <dependency>
-        	<groupId>com.googlecode.totallylazy</groupId>
-        	<artifactId>totallylazy</artifactId>
-        	<version>1049</version>
-    	</dependency>
+ 
 	</dependencies> 
 	<build>
 		<filters>
