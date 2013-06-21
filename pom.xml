@@ -11,7 +11,19 @@
         <selenium.version>2.31.0</selenium.version>	
 		<cucumber.version>1.1.2</cucumber.version>	
 	</properties>
-  
+  	<pluginRepositories>
+			<pluginRepository>  
+				<id>codehaus snapshot repository</id>  
+ 				<url>http://snapshots.repository.codehaus.org/</url>  
+				<releases>  
+					<enabled>true</enabled>  
+				</releases>  
+				<snapshots>
+				    <enabled>true</enabled>				   
+				</snapshots>  
+			</pluginRepository>  
+  	</pluginRepositories>
+  			
 	<dependencies>
 		<dependency>
 		    <groupId>info.cukes</groupId>
@@ -95,7 +107,7 @@
 					<executable>mvn</executable>
 					<mainClass>npg.webadmin.acceptance.test.AcceptanceTestRunner</mainClass>
 				</configuration>
-			</plugin>
+			</plugin>      
 		</plugins>
 
 		<resources> 
