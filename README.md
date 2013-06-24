@@ -11,4 +11,8 @@ Acceptance Testing Using Cucumber jvm
 
 To create and run test application
 
-> mvn clean package -Denvironment=test -Dbrowser=chrome -DskipTests
+> mvn clean resources:resources -Dbrowser=safari test
+
+> mvn clean resources:resources -Denvironment=test -Dbrowser=safari test
+
+
