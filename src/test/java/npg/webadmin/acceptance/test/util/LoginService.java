@@ -27,7 +27,8 @@ public class LoginService {
 	 public void toLoginPage(WebDriver webDriver) {
  	    WebElement loginElement = webDriver.findElement(By.xpath("//a[@href='/webadmin/adminlogin.do']"));
 		loginElement.click();
-		webDriver.getTitle().equals("Nature Publishing Group : Login to your Nature.com account");
+		//webDriver.getTitle().equals("Nature Publishing Group : Login to your Nature.com account");
+		//webDriver.findElement(By.xpath("//a[@href='/webadmin/adminlogout.do']"));
 	 }
 
 	 

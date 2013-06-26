@@ -29,7 +29,9 @@ public class WebElementsVerificationService {
 	
 	public void processFieldItems(WebDriver webDriver, List<FieldItem> items) {
 	        for (FieldItem item : items) {      	  
-	        	Constants.LOGGER.info("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present);         	
+	        	//Constants.LOGGER.info("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 
+	        	System.out.println("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 
+	        	
 	        	if (item.type.toLowerCase().trim().equals(Constants.DEFINITION_TERM)) { 
 	        		textElementsVerificationService.verifyElementDt(webDriver, item);
 	        	} else if (item.type.toLowerCase().trim().equals(Constants.TEXT)) {

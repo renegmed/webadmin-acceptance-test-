@@ -121,7 +121,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     		}  
     	} catch (NoSuchElementException e) {    		    	
        	    if (item.present.trim().toLowerCase().equals(Constants.YES)) {
-       	    	assertTrue("  Header 2 text '"+ item.value + "' should not be present in the page." , false);
+       	    	assertTrue("  Header 2 text '"+ item.value + "' should be present in the page." , false);
        	    }	     
 	    }    	
     }

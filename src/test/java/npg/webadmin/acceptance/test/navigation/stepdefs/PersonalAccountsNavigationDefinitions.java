@@ -73,6 +73,7 @@ public class PersonalAccountsNavigationDefinitions {
     	webDriver.findElement(By.xpath("//span[contains(text(), 'Profile')][parent::a]")).click(); 
     	// go to Address book page
     	webDriver.findElement(By.xpath("//a[contains(text(), 'Edit')][@title='Edit contact information']")).click();
+    	
     }
  
     @When("^is on user my account profile change password page$")
@@ -110,7 +111,9 @@ public class PersonalAccountsNavigationDefinitions {
       	// go to Alerts
     	webDriver.findElement(By.xpath("//span[contains(text(), 'Alerts')][parent::a[@href='/nams/svc/myaccount/show/ealerts']]")).click(); 
     	// go to Modify Alerts
-    	webDriver.findElement(By.xpath("//a[contains(text(), 'Modify')][@title='Modify alert settings']")).click(); 
+    	webDriver.findElement(By.xpath("//a[contains(text(), 'Modify')][@title='Modify alert settings']")).click();
+    	
+    	webDriver.findElement(By.xpath("//h2[contains(text(), 'Modify Address Book')]"));
     }
  
     @When("^my account user navigate to subscriptions and purchases page$")

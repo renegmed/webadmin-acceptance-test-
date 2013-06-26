@@ -1,13 +1,12 @@
 package npg.webadmin.acceptance.test.navigation.stepdefs;
 
+import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 import npg.webadmin.acceptance.test.util.WebDriverFactory;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import com.google.inject.Inject;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -56,7 +55,8 @@ public class WebAdminLoginInDefinitions {
 
 	@Then("^ensure the user is able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")
 	public void ensureTheUserIsAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception {
-		loginService.userLogIn(webDriver, username, password); 
+		loginService.userLogIn(webDriver, username, password);
+		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		// verify you are on the right landing page 
 		webDriver.findElement(By.linkText("Logout"));
 		
@@ -64,7 +64,10 @@ public class WebAdminLoginInDefinitions {
 
 	@Then("^ensure the user is not able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")
 	public void ensureUserIsNotAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception {
-		loginService.userLogIn(webDriver, username, password); 
+		loginService.userLogIn(webDriver, username, password);
+		
+		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		
 		// verify you are on the right landing page 
 		try {	 			
 		    webDriver.findElement(By.xpath("//span[contains(text(), 'Login incorrect. Try again.')]"));		   
