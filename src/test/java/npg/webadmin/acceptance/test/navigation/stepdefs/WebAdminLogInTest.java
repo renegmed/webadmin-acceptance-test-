@@ -5,10 +5,10 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @Cucumber.Options(
-//  features={"target/classes/npg/webadmin/acceptance/test/navigation/stepdefs/webadmin_login.feature"},
+  features={"target/classes/npg/webadmin/acceptance/test/navigation/stepdefs/webadmin_login.feature"},
 // tags = {"@wip"},
 //  glue = { "npg.webadmin.acceptance.test.navigation.stepdefs" },
-  format = {"pretty","html:target/login_test","json:target/login_test.json"}) // {"html:reports"}) //{"json:target/cucumber.json"})
+  format = {"pretty","html:target/login_test_result","json:target/login_test_result.json"}) // {"html:reports"}) //{"json:target/cucumber.json"})
 public class WebAdminLogInTest {
 	
 }
