@@ -111,7 +111,9 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
     	}
     }    
 
-    public void verifyElementSelectOption(WebDriver webDriver, FieldItem item) {    	
+    public void verifyElementSelectOption(WebDriver webDriver, FieldItem item) {
+    	System.out.println("+++++ verifying element select option");
+    	
     	if (item.value.trim().contains(Constants.WITH_SELECT_PARENT_NAME)) {  
     		verifyElementSelectOption(webDriver, item, Constants.WITH_SELECT_PARENT_NAME);    	  
     	} else if (item.value.trim().contains(Constants.WITH_SELECT_PARENT_NAME_SELECTED)) {          
@@ -122,6 +124,8 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
     }
     
     protected void verifyElementSelectOption(WebDriver webDriver, FieldItem item, String separator) {
+    	System.out.println("+++++ verify Element Select Option   item.value: " + item.value + "   item.fieldname: " + item.fieldname + 
+    			"  separator: " + (separator==null?"null":separator));
     	try {
     		if (separator == null) {
     			webDriver.findElement(By.xpath("//option[contains(text(), '" + item.value +  "')]"));

@@ -69,10 +69,20 @@ public class PersonalAccountsNavigationDefinitions {
   
     @When("^is on user my account profile address book modification page$")
     public void is_on_user_my_account_profile_address_book_modification_page() {
+    	
+    	//System.out.println("+++++ calling //a[@href='/nams/svc/myaccount']");
     	// go to Profile
-    	webDriver.findElement(By.xpath("//span[contains(text(), 'Profile')][parent::a]")).click(); 
+    	webDriver.findElement(By.xpath("//a[@href='/nams/svc/myaccount']"));
+    	//webDriver.findElement(By.xpath("//span[contains(text(), 'Profile')][parent::a]")).click();
+    	
+    	//System.out.println("+++++ ready to click 'Edit contact information'");
+    	
     	// go to Address book page
     	webDriver.findElement(By.xpath("//a[contains(text(), 'Edit')][@title='Edit contact information']")).click();
+    	   	
+    	//webDriver.findElement(By.xpath("//h2[contains(text(), 'Modify Address Book')]"));
+    	
+    	//System.out.println("+++++ done clicking 'Edit contact information'");
     	
     }
  
@@ -111,9 +121,8 @@ public class PersonalAccountsNavigationDefinitions {
       	// go to Alerts
     	webDriver.findElement(By.xpath("//span[contains(text(), 'Alerts')][parent::a[@href='/nams/svc/myaccount/show/ealerts']]")).click(); 
     	// go to Modify Alerts
-    	webDriver.findElement(By.xpath("//a[contains(text(), 'Modify')][@title='Modify alert settings']")).click();
+    	webDriver.findElement(By.xpath("//a[contains(text(), 'Modify')][@title='Modify alert settings']")).click();    	
     	
-    	webDriver.findElement(By.xpath("//h2[contains(text(), 'Modify Address Book')]"));
     }
  
     @When("^my account user navigate to subscriptions and purchases page$")

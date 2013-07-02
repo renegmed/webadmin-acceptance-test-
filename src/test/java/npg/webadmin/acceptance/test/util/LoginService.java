@@ -1,6 +1,7 @@
 package npg.webadmin.acceptance.test.util;
 
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -60,16 +61,19 @@ public class LoginService {
 		WebElement passwordElement = webDriver.findElement(By.id("login-password"));  
 		userIdElement.sendKeys(username);
 		passwordElement.sendKeys(password);		
-		webDriver.findElement(By.id("login-submit")).click();	
+		webDriver.findElement(By.id("login-submit")).click();
+		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}	
 
 	public void userLogout(WebDriver webDriver) {		
 		WebElement logoutElement = webDriver.findElement(By.linkText("Logout"));  
 		logoutElement.click();
-		webDriver.findElement(By.linkText("Login"));
+		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		
+		webDriver.findElement(By.linkText("Login"));		
 		// should stay/be in Main Page
 		webDriver.getTitle().equals("Customer Service");
+		
 	}
 	
 	
@@ -88,7 +92,7 @@ public class LoginService {
 			
 		driver.findElement(By.xpath("//input[@value='Login' and @type='submit']")).click(); 	 
 		//driver.findElement(By.linkText("Logout"));		
-	
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
  
 	}
 	
@@ -104,6 +108,7 @@ public class LoginService {
 		passwordElement.sendKeys(password);
 			
 		driver.findElement(By.xpath("//input[@type='image' and @src='/store/images/btn_login.gif']")).click(); 	 
-		//driver.findElement(By.linkText("Logout"));		  			 
+		//driver.findElement(By.linkText("Logout"));
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
 }

@@ -6,7 +6,7 @@ Feature: Webadmin User searches and navigate Personal Account pages
        I want to search personal account
        so I can view and update information related to the account
    
-  
+   
   Scenario: user navigates MyAccount pages     
     Given user is logged-in as "${myaccount.user.username}" password "${myaccount.user.password}" for user personal account search  
 
@@ -49,4 +49,4 @@ Feature: Webadmin User searches and navigate Personal Account pages
     When my account user navigate to subscriptions and purchases page
     Then ensure these elements are present or not present in the current my account page
     
-    ${myaccount.alerts.subscriptions.purchases.elements}      
+    ${myaccount.subscriptions.purchases.elements}      
