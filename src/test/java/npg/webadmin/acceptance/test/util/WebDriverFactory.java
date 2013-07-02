@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
 
 public class WebDriverFactory {
 
@@ -19,12 +21,23 @@ public class WebDriverFactory {
        	String browserToUse = ResourceBundle.getBundle("webadmin-selenium").getString("browser.to.use");
        	
        	if (browserToUse.trim().toLowerCase().equals("chrome")) {
-   	       System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
-   	       webDriver = new ChromeDriver();
-       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot")){
-       		webDriver = new FirefoxDriver();
+   	       //System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
+   	       //webDriver = new ChromeDriver();
+   	       webDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+    	} else if (browserToUse.trim().toLowerCase().equals("chrome16")){
+       		//webDriver = new FirefoxDriver();
+       		webDriver = new HtmlUnitDriver(BrowserVersion.CHROME_16);   
+       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot17")){
+       		//webDriver = new FirefoxDriver();
+       		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
+       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot10")){
+       		//webDriver = new FirefoxDriver();
+       		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_10);
+       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot3")){
+       		//webDriver = new FirefoxDriver();
+       		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);       		
        	} else if (browserToUse.trim().toLowerCase().equals("safari")){
-       		webDriver = new SafariDriver();  
+       		webDriver = new SafariDriver();       		 
     	} else if (browserToUse.trim().toLowerCase().equals("explorer") || 
     			 browserToUse.trim().toLowerCase().equals("iexplorer")){
     		webDriver = new InternetExplorerDriver();           	        
