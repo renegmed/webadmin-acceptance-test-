@@ -7,13 +7,17 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
+import cucumber.api.Scenario;
 import com.google.inject.Inject;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import cucumber.api.java.en.When; 
 import npg.webadmin.acceptance.test.util.LoginService;
 
 public class WebAdminLoginInDefinitions {
@@ -29,20 +33,47 @@ public class WebAdminLoginInDefinitions {
 	public void initializeDriver() {
 		webDriver = WebDriverFactory.createWebDriver();
 	}
-	 
+	/* 
 	@After(value="@Close")
-    public void clear() {
-		//try {
-		//  loginService.userLogout(webDriver);
-		//} catch (Exception e) {
-		//	// do nothing
-		//}
-		
+    public void clear() { 
 		if (webDriver != null) {	    	
 	    	webDriver.quit();
 	    }	
 	}
-	    
+	*/
+	
+	//public void takeScreenShot(Scenario result) throws IOException {
+	//    result.embed(getScreenShotBytes(), "image/png");
+	//}
+	 
+	@After(value="@Close") 
+    public void embedScreenshot(Scenario scenario) {  
+        if (scenario.isFailed()) { 
+        	
+        	System.out.println("++++++ scenario has error ++++++++ ");
+        	
+            try {  
+                byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);  
+                scenario.embed(getScreenShotBytes(), "image/png");  
+            //} catch (WebDriverException wde) {  
+            //    System.err.println(wde.getMessage());  
+            } catch (Exception e) {  
+                e.printStackTrace();  
+            }  
+        }
+        if (webDriver != null) {	    	
+	    	webDriver.quit();
+	    }
+    }  
+	private byte[] getScreenShotBytes() {
+	    //if(WebDriverSingleton.getInstance() instanceof TakesScreenshot){
+	    //  return ((TakesScreenshot) WebDriverSingleton.getInstance()).getScreenshotAs(OutputType.BYTES);
+	    //}
+	    byte[] screenshot = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.BYTES);
+	    return screenshot;
+	    //return new byte[]{};
+	}
+	 
 	@Given("^user is in webadmin main page$")
 	public void userIsInWebadminMainPage() throws Exception  {
 		loginService.toMainPage(webDriver); 
@@ -54,12 +85,11 @@ public class WebAdminLoginInDefinitions {
 	}
 
 	@Then("^ensure the user is able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")
-	public void ensureTheUserIsAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception {
-		loginService.userLogIn(webDriver, username, password);
-		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		// verify you are on the right landing page 
-		webDriver.findElement(By.linkText("Logout"));
-		
+	public void ensureTheUserIsAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception  {	 
+	   loginService.userLogIn(webDriver, username, password);		
+	   webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	   // verify you are on the right landing page 
+	   webDriver.findElement(By.linkText("Logout"));	   
 	}
 
 	@Then("^ensure the user is not able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")

@@ -22,7 +22,8 @@ public abstract class WebElementsVerificationBaseAbstract {
 	public class SearchItem {
 	   	public String field;
 	   	public String operation;
-	   	public String fieldvalue;   
+	   	public String fieldvalue;
+	   	public String remark;
 	}    
 	  
 	public class FieldItem {
@@ -30,6 +31,7 @@ public abstract class WebElementsVerificationBaseAbstract {
 	   	public String value;
 	   	public String type;
 	   	public String present;
+	   	public String remark;
 	}
 	
 	public String getAttributes(String key) {

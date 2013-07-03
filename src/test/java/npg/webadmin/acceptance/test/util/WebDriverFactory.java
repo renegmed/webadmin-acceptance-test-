@@ -16,25 +16,23 @@ public class WebDriverFactory {
 	
 	    ResourceBundle resource = ResourceBundle.getBundle("webadmin-selenium");
 	    
-    	System.out.println("++++ Initializing the web driver +++++");
+    	//System.out.println("++++ Initializing the web driver +++++");
        	
        	String browserToUse = ResourceBundle.getBundle("webadmin-selenium").getString("browser.to.use");
        	
        	if (browserToUse.trim().toLowerCase().equals("chrome")) {
-   	       //System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
-   	       //webDriver = new ChromeDriver();
+   	       System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
+   	       webDriver = new ChromeDriver();
+       	} else if (browserToUse.trim().toLowerCase().equals("chromehtml")){   
    	       webDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
-    	} else if (browserToUse.trim().toLowerCase().equals("chrome16")){
-       		//webDriver = new FirefoxDriver();
+    	} else if (browserToUse.trim().toLowerCase().equals("chrome16")){       		 
        		webDriver = new HtmlUnitDriver(BrowserVersion.CHROME_16);   
        	} else if (browserToUse.trim().toLowerCase().equals("foxtrot17")){
        		//webDriver = new FirefoxDriver();
        		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
-       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot10")){
-       		//webDriver = new FirefoxDriver();
+       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot10")){       		
        		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_10);
-       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot3")){
-       		//webDriver = new FirefoxDriver();
+       	} else if (browserToUse.trim().toLowerCase().equals("foxtrot3")){       
        		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);       		
        	} else if (browserToUse.trim().toLowerCase().equals("safari")){
        		webDriver = new SafariDriver();       		 
@@ -42,7 +40,7 @@ public class WebDriverFactory {
     			 browserToUse.trim().toLowerCase().equals("iexplorer")){
     		webDriver = new InternetExplorerDriver();           	        
        	} else {  // default
-       		webDriver = new FirefoxDriver();	
+       		webDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);	
        	}       	
        	String environment = resource.getString("environment");       	
        	//System.out.println(" +++++ environment: " + environment);       	
