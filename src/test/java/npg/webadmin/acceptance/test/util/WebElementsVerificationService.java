@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 import npg.webadmin.acceptance.test.Constants;
 import npg.webadmin.acceptance.test.util.WebElementsVerificationBaseAbstract.FieldItem;
+import npg.webadmin.acceptance.test.WebDriverWrapper;
 
 public class WebElementsVerificationService {
 
@@ -27,7 +28,7 @@ public class WebElementsVerificationService {
 	}
 
 	
-	public void processFieldItems(WebDriver webDriver, List<FieldItem> items) {
+	public void processFieldItems(WebDriverWrapper webDriver, List<FieldItem> items) {
 	        for (FieldItem item : items) {      	  
 	        	//Constants.LOGGER.info("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 
 	        	System.out.println("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 

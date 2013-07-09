@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
+import npg.webadmin.acceptance.test.WebDriverWrapper;
 import npg.webadmin.acceptance.test.Constants;
  
 
@@ -18,14 +18,15 @@ public class LoginService {
 	    this.resource = resource;	 
 	 }
 
-	 public void toMainPage(WebDriver webDriver) {
+	 public void toWebAdminMainPage(WebDriverWrapper webDriver) {
 	    String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment);
-		webDriver.navigate().to("http://" + targetHost + "/webadmin"); 
+		webDriver.navigate().to("http://" + targetHost + "/webadmin");
+		//webDriver.get("http://" + targetHost + "/webadmin"); 
 	 }
 	 
 	 
-	 public void toLoginPage(WebDriver webDriver) {
+	 public void toWebAdminLoginPage(WebDriverWrapper webDriver) {
  	    WebElement loginElement = webDriver.findElement(By.xpath("//a[@href='/webadmin/adminlogin.do']"));
 		loginElement.click();
 		//webDriver.getTitle().equals("Nature Publishing Group : Login to your Nature.com account");
@@ -33,7 +34,7 @@ public class LoginService {
 	 }
 
 	 
-	 public void userLogIn(WebDriver webDriver) {  			
+	 public void userLogIn(WebDriverWrapper webDriver) {  			
 		// test if a user is already logged-in
 		try { 
 			webDriver.findElement(By.linkText("Logout"));
@@ -45,18 +46,18 @@ public class LoginService {
 				 
 			String username=resource.getString("login.username");
 		    String password = resource.getString("login.password");    	
-		    userLogIn(webDriver, username, password); 
+		    userLogInWebAdmin(webDriver, username, password); 
 	        // verify that next page has 'Logout' text
 			//  driver.findElement(By.linkText("Logout"));
 			  
 		}
 	}
  
-	public void userLogIn(WebDriver webDriver, String username, String password) {  
+	public void userLogInWebAdmin(WebDriverWrapper webDriver, String username, String password) {  
 		String environment = resource.getString("environment");
-		String targetHost = resource.getString("host." + environment);
-		
+		String targetHost = resource.getString("host." + environment);		
 		webDriver.navigate().to("http://" + targetHost + "/webadmin/adminlogin.do");
+		//webDriver.get("http://" + targetHost + "/webadmin/adminlogin.do");
 		WebElement userIdElement = webDriver.findElement(By.id("login-username"));  
 		WebElement passwordElement = webDriver.findElement(By.id("login-password"));  
 		userIdElement.sendKeys(username);
@@ -65,7 +66,7 @@ public class LoginService {
 		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}	
 
-	public void userLogout(WebDriver webDriver) {		
+	public void userLogoutWebAdmin(WebDriver webDriver) {		
 		WebElement logoutElement = webDriver.findElement(By.linkText("Logout"));  
 		logoutElement.click();
 		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -79,12 +80,13 @@ public class LoginService {
 	
 	
 	
-	public void loginMyAccount(WebDriver driver, String username, String password) {  			
+	public void loginMyAccount(WebDriverWrapper driver, String username, String password) {  			
 		 
 		Constants.LOGGER.info("====== Going to log in. ======");				 
 		String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment); 	    
 		driver.navigate().to("http://" + targetHost + "/nams/svc/myaccount");
+		//driver.get("http://" + targetHost + "/nams/svc/myaccount");
 		WebElement userIdElement = driver.findElement(By.id("email"));  
 		WebElement passwordElement = driver.findElement(By.id("password"));  
 		userIdElement.sendKeys(username);
@@ -96,12 +98,13 @@ public class LoginService {
  
 	}
 	
-	public void loginNatureAsLibrarian(WebDriver driver, String username, String password) {  			
+	public void loginNatureAsLibrarian(WebDriverWrapper driver, String username, String password) {  			
 		 
 		Constants.LOGGER.info("====== Going to log in. ======");				 
 		String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment); 	    
 		driver.navigate().to("http://" + targetHost + "/webadmin/nams/svc/mysiteaccount");
+		//driver.get("http://" + targetHost + "/webadmin/nams/svc/mysiteaccount");
 		WebElement userIdElement = driver.findElement(By.name("userId"));  
 		WebElement passwordElement = driver.findElement(By.name("password"));  
 		userIdElement.sendKeys(username);

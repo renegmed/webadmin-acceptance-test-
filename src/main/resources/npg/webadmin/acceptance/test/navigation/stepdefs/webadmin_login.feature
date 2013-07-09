@@ -2,7 +2,7 @@ ${at.sign}Initialize
 ${at.sign}Close
 Feature: Webadmin Login Functionalities  
   
-  
+   
   Scenario: Verify user valid login credential   
     Given user is in webadmin main page
     When user goes to login page

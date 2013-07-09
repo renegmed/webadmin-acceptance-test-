@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import npg.webadmin.acceptance.test.Constants;
+import npg.webadmin.acceptance.test.WebDriverWrapper;
 
 public class TextElementsVerificationService extends WebElementsVerificationBaseAbstract {
 
@@ -12,7 +13,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 		
 	}
 
-	public void verifyElementText(WebDriver webDriver, FieldItem item) {
+	public void verifyElementText(WebDriverWrapper webDriver, FieldItem item) {
 	    	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_LINK_PARENT)) {    	    		
 	    		verifyElementText(webDriver, item, Constants.WITH_ATTRIBUTE_LINK_PARENT);
 	    	} else if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT)) {  
@@ -24,7 +25,11 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 	    	}
 	}	
 	 
-    private void verifyElementText(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementText(WebDriverWrapper webDriver, FieldItem item, String separator) {
+    	
+    	//System.out.println(" type " + item.type + " :  " + item.value + "   separator: " + separator +
+    	//" current url: " + webDriver.getCurrentUrl());
+    	
     	try {
     		if (separator==null) {    		  	
     		    try{
@@ -66,7 +71,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     			
     			if (separator.equals(Constants.WITH_ATTRIBUTE_LINK_PARENT)) {
     				webDriver.findElement(By.xpath("//*[contains(text(), '" + parts[0] + 
-    	    				"')][ancestor::a]"));
+    	    				"')][ancestor::a]"));    			
     			} else if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT) ||
     					item.value.trim().contains(Constants.FOLLOWING_SIBLING_TEXT)) {  		    			
     				webDriver.findElement(By.xpath("//td[contains(text(), '" + parts[0] + 
@@ -74,7 +79,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     			} else {
     				webDriver.findElement(By.xpath("//span[contains(text(), '" + parts[0] + 
     	    		  		"')][ancestor::a[@href='" + parts[1] + "']]")); 
-    				  
+    				
     			}  
     		} else {     		
     			//System.out.println("XPATH: SEPARATOR: " + separator + "\n" + "//span[contains(text(), '" + parts[0] + 
@@ -95,10 +100,9 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     	   } 
     	}
     }
-        
    
     
-    public void verifyElementDt(WebDriver webDriver, FieldItem item) {
+    public void verifyElementDt(WebDriverWrapper webDriver, FieldItem item) {
     	try {    		
     		webDriver.findElement(By.xpath("//dt[contains(text(), '" + item.value + "')]"));
   		  if (item.present.trim().toLowerCase().equals(Constants.NO)) {
@@ -126,7 +130,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 	    }    	
     }
   
-    public void verifyElementDd(WebDriver webDriver, FieldItem item) {    	
+    public void verifyElementDd(WebDriverWrapper webDriver, FieldItem item) {    	
     	if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT)) {  
     		verifyElementDd(webDriver, item, Constants.PRECEDING_SIBLING_TEXT);    	  
     	} else if (item.value.trim().contains(Constants.FOLLOWING_SIBLING_TEXT)) {          
@@ -136,7 +140,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     	}   
     }    
     
-    private void verifyElementDd(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementDd(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	try {
     		if (separator == null) {
     			webDriver.findElement(By.xpath("//dd[contains(text(), '" + item.value +  "')]"));

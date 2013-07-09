@@ -3,10 +3,7 @@ package npg.webadmin.acceptance.test.util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
-
 import npg.webadmin.acceptance.test.Constants;
-
  
 
 public abstract class WebElementsVerificationBaseAbstract {

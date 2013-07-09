@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import npg.webadmin.acceptance.test.Constants;
-
+import npg.webadmin.acceptance.test.WebDriverWrapper;
  
 public class ImageElementsVerificationService extends WebElementsVerificationBaseAbstract {
 
@@ -13,7 +13,7 @@ public class ImageElementsVerificationService extends WebElementsVerificationBas
 		 
 	}
 
-    public void verifyElementImage(WebDriver webDriver, FieldItem item) {
+    public void verifyElementImage(WebDriverWrapper webDriver, FieldItem item) {
     	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_LINK_PARENT)) {    	    		
     		verifyElementImage(webDriver, item, Constants.WITH_ATTRIBUTE_LINK_PARENT);
     	} else if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_ALT)) {    	    		
@@ -23,7 +23,7 @@ public class ImageElementsVerificationService extends WebElementsVerificationBas
     	}
     }
     
-    private void verifyElementImage(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementImage(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	try {
     		if (separator==null) {      			 
     			webDriver.findElement(By.xpath("//img[@src='" + item.value + "']"));    		         
