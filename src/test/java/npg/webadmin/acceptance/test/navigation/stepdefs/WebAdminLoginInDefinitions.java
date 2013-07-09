@@ -39,6 +39,7 @@ public class WebAdminLoginInDefinitions {
  
 	@Given("^user is in webadmin main page$")
 	public void userIsInWebadminMainPage() throws Exception  {
+		webDriverWrapper.manage().deleteAllCookies();
 		loginService.toWebAdminMainPage(webDriverWrapper); 
 	}
 
