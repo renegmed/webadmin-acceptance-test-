@@ -74,6 +74,9 @@ public class WebDriverWrapper implements WebDriver{
        
 	}
 	
+	public Object getDriver() {
+		return objDriver;
+	}
 
 	  /**
 	   * Load a new web page in the current browser window. This is done using an HTTP GET operation,

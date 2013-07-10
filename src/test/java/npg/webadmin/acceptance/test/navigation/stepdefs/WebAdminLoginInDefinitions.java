@@ -6,6 +6,7 @@ import npg.webadmin.acceptance.test.util.WebDriverFactory;
 import npg.webadmin.acceptance.test.WebDriverWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import com.google.inject.Inject;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -26,7 +27,10 @@ public class WebAdminLoginInDefinitions {
 	
 	@Before(value="@Initialize")
 	public void initializeDriver() {
-		webDriverWrapper = WebDriverFactory.getWebDriver();	
+		webDriverWrapper = WebDriverFactory.getWebDriver();
+		if (webDriverWrapper.getDriver() instanceof HtmlUnitDriver) {
+			((HtmlUnitDriver)webDriverWrapper.getDriver()).setJavascriptEnabled(false);
+		}
 	}
 	 
 	@After(value="@Close")
