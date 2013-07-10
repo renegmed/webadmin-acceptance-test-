@@ -67,7 +67,7 @@ Feature: MyAccount Navigation Verification
     ${myaccount.subscriptions.purchases.elements}    
    
   
-    
+   
   Scenario: user navigates MyAccount pages     
     Given user is logged-in as "${myaccount.user.username}" password "${myaccount.user.password}" for user personal account search  
 
@@ -110,4 +110,5 @@ Feature: MyAccount Navigation Verification
     When my account user navigate to subscriptions and purchases page
     Then ensure these elements are present or not present in the current my account page
     
-    ${myaccount.subscriptions.purchases.elements}      
+    ${myaccount.subscriptions.purchases.elements}
+          

@@ -48,7 +48,9 @@ public class MyAccountNavigationDefinitions {
 	@After(value="@CloseMyAccount")
     public void clear() {		 
 	    if (webDriver != null) {
+	    	webDriver.manage().deleteAllCookies();
 	    	webDriver.quit();
+	    	webDriver = null;
 	    }	
 	}
 	
@@ -56,7 +58,7 @@ public class MyAccountNavigationDefinitions {
 	 
     @Given("^webadmin user is logged-in using username \"([^\"]*)\" password \"([^\"]*)\"$") 
     public void userLoggedInToWebAdmin(String username, String password){
-    	webDriver.manage().deleteAllCookies();
+    	//webDriver.manage().deleteAllCookies();
     	loginService.userLogInWebAdmin(webDriver, username, password);    	 
     }
     

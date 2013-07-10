@@ -33,30 +33,31 @@ public class WebDriverWrapper implements WebDriver{
    	    
        	} else if (browserToUse.trim().toLowerCase().equals("chromehtml")){   
        		HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);       		
-       		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
    		
     	} else if (browserToUse.trim().toLowerCase().equals("chrome16")){       		 
     		objDriver = new HtmlUnitDriver(BrowserVersion.CHROME_16);
-    		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+    		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
     		
     	} else if (browserToUse.trim().toLowerCase().equals("htmlunit")){   
-    		objDriver = new HtmlUnitDriver(true); 	                      // turn-on javascript
-   		     	
+    		objDriver = new HtmlUnitDriver(true);     		// turn-on javascript
+    		//objDriver = new HtmlUnitDriver();
+    		
     	} else if (browserToUse.trim().toLowerCase().equals("foxtrot")){
        		objDriver = (WebDriver) new FirefoxDriver();   
        		
        	} else if (browserToUse.trim().toLowerCase().equals("foxtrot17")){
        		//webDriver = new FirefoxDriver();
        		objDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
-       		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
        		
        	} else if (browserToUse.trim().toLowerCase().equals("foxtrot10")){       		
        		objDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_10);
-       		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
        		
        	} else if (browserToUse.trim().toLowerCase().equals("foxtrot3")){       
        		objDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_3_6);
-       		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
        		
        	} else if (browserToUse.trim().toLowerCase().equals("safari")){
        		objDriver = (WebDriver)new SafariDriver();       		 
@@ -68,7 +69,7 @@ public class WebDriverWrapper implements WebDriver{
        	
        	} else {  // default
        		objDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
-       		((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
        	}  
        
 	}

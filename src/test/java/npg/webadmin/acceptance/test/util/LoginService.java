@@ -21,16 +21,19 @@ public class LoginService {
 	 public void toWebAdminMainPage(WebDriverWrapper webDriver) {
 	    String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment);
-		webDriver.navigate().to("http://" + targetHost + "/webadmin");
-		//webDriver.get("http://" + targetHost + "/webadmin"); 
+		//webDriver.navigate().to("http://" + targetHost + "/webadmin");
+		webDriver.get("http://" + targetHost + "/webadmin"); 
+		
 	 }
 	 
 	 
-	 public void toWebAdminLoginPage(WebDriverWrapper webDriver) {
- 	    WebElement loginElement = webDriver.findElement(By.xpath("//a[@href='/webadmin/adminlogin.do']"));
-		loginElement.click();
-		//webDriver.getTitle().equals("Nature Publishing Group : Login to your Nature.com account");
-		//webDriver.findElement(By.xpath("//a[@href='/webadmin/adminlogout.do']"));
+	 public void toWebAdminLoginPage(WebDriverWrapper webDriver) { 
+		String environment = resource.getString("environment");
+		String targetHost = resource.getString("host." + environment);		
+			//webDriver.navigate().to("http://" + targetHost + "/webadmin/adminlogin.do");
+		webDriver.get("http://" + targetHost + "/webadmin/adminlogin.do");
+		webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		 
 	 }
 
 	 
@@ -46,35 +49,29 @@ public class LoginService {
 				 
 			String username=resource.getString("login.username");
 		    String password = resource.getString("login.password");    	
-		    userLogInWebAdmin(webDriver, username, password); 
-	        // verify that next page has 'Logout' text
-			//  driver.findElement(By.linkText("Logout"));
-			  
+		    userLogInWebAdmin(webDriver, username, password);  
 		}
 	}
  
 	public void userLogInWebAdmin(WebDriverWrapper webDriver, String username, String password) {  
-		String environment = resource.getString("environment");
-		String targetHost = resource.getString("host." + environment);		
-		webDriver.navigate().to("http://" + targetHost + "/webadmin/adminlogin.do");
-		//webDriver.get("http://" + targetHost + "/webadmin/adminlogin.do");
-		WebElement userIdElement = webDriver.findElement(By.id("login-username"));  
-		WebElement passwordElement = webDriver.findElement(By.id("login-password"));  
+		toWebAdminLoginPage(webDriver);
+		WebElement userIdElement = webDriver.findElement(By.xpath("//input[@id='login-username']"));  
+		WebElement passwordElement = webDriver.findElement(By.xpath("//input[@id='login-password']"));  
+		
 		userIdElement.sendKeys(username);
 		passwordElement.sendKeys(password);		
-		webDriver.findElement(By.id("login-submit")).click();
-		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		//webDriver.findElement(By.id("login-submit")).click();
+		webDriver.findElement(By.xpath("//input[@id='login-submit']")).submit();
+		 
+		webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}	
 
 	public void userLogoutWebAdmin(WebDriver webDriver) {	
 		try {
 		  WebElement logoutElement = webDriver.findElement(By.linkText("Logout"));  
 	  	  logoutElement.click();
-		  webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
-		  //webDriver.findElement(By.linkText("Login"));		
-		  // should stay/be in Main Page
-		  //webDriver.getTitle().equals("Customer Service");
+		  webDriver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS); 
+ 
 		} catch (NoSuchElementException e) {
 		  // do nothing	
 		}
@@ -95,7 +92,7 @@ public class LoginService {
 		userIdElement.sendKeys(username);
 		passwordElement.sendKeys(password);
 			
-		driver.findElement(By.xpath("//input[@value='Login' and @type='submit']")).click(); 	 
+		driver.findElement(By.xpath("//input[@value='Login' and @type='submit']")).submit(); 	 
 		//driver.findElement(By.linkText("Logout"));		
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
  
@@ -113,7 +110,7 @@ public class LoginService {
 		userIdElement.sendKeys(username);
 		passwordElement.sendKeys(password);
 			
-		driver.findElement(By.xpath("//input[@type='image' and @src='/store/images/btn_login.gif']")).click(); 	 
+		driver.findElement(By.xpath("//input[@type='image' and @src='/store/images/btn_login.gif']")).submit(); 	 
 		//driver.findElement(By.linkText("Logout"));
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}

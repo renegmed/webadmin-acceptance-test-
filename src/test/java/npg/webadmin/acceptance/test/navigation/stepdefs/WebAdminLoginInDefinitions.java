@@ -1,6 +1,6 @@
 package npg.webadmin.acceptance.test.navigation.stepdefs;
 
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 import static org.junit.Assert.assertTrue;
 import npg.webadmin.acceptance.test.util.WebDriverFactory;
 import npg.webadmin.acceptance.test.WebDriverWrapper;
@@ -15,7 +15,7 @@ import cucumber.api.java.en.When;
 import npg.webadmin.acceptance.test.util.LoginService;
 
 public class WebAdminLoginInDefinitions {
-	private WebDriverWrapper webDriverWrapper = null;
+	private WebDriverWrapper webDriverWrapper;
 	
 	private LoginService loginService;
 	
@@ -31,16 +31,19 @@ public class WebAdminLoginInDefinitions {
 	 
 	@After(value="@Close")
     public void clear() { 
-		if (webDriverWrapper != null) {	    	
+		if (webDriverWrapper != null) {
+			webDriverWrapper.manage().deleteAllCookies();
 			webDriverWrapper.quit();
+			webDriverWrapper = null;
 	    }	
 	}
 	 
  
 	@Given("^user is in webadmin main page$")
 	public void userIsInWebadminMainPage() throws Exception  {
-		webDriverWrapper.manage().deleteAllCookies();
+		//webDriverWrapper.manage().deleteAllCookies();
 		loginService.toWebAdminMainPage(webDriverWrapper); 
+		
 	}
 
 	@When("^user goes to login page$")
@@ -49,19 +52,18 @@ public class WebAdminLoginInDefinitions {
 	}
 
 	@Then("^ensure the user is able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")
-	public void ensureTheUserIsAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception  {	 
-	   loginService.userLogInWebAdmin(webDriverWrapper, username, password);		
-	   webDriverWrapper.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	   // verify you are on the right landing page 
-	   webDriverWrapper.findElement(By.linkText("Logout"));	   
+	public void ensureTheUserIsAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception  { 
+	   loginService.userLogInWebAdmin(webDriverWrapper, username, password); 
+	   webDriverWrapper.findElement(By.linkText("Logout"));	
+	   
 	}
 
+	
 	@Then("^ensure the user is not able to logged in with username \"([^\"]*)\" password \"([^\"]*)\"$")
 	public void ensureUserIsNotAbleToLoggedInWithUsernamePassword(String username, String password) throws Exception {
+		  
 		loginService.userLogInWebAdmin(webDriverWrapper, username, password);
-		
-		webDriverWrapper.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
+		 
 		// verify you are on the right landing page 
 		try {	 			
 			webDriverWrapper.findElement(By.xpath("//span[contains(text(), 'Login incorrect. Try again.')]"));		   
