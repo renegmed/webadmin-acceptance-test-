@@ -6,6 +6,7 @@ import npg.webadmin.acceptance.test.WebDriverWrapper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import com.google.inject.Inject;
@@ -43,6 +44,9 @@ public class MyAccountNavigationDefinitions {
 	@Before(value="@InitializeMyAccount")
 	public void initializeDriver() {
 		webDriver = WebDriverFactory.getWebDriver();
+		if (webDriver.getDriver() instanceof HtmlUnitDriver) {    
+			((HtmlUnitDriver) webDriver.getDriver()).setJavascriptEnabled(true);  
+		}
 	}
 	 
 	@After(value="@CloseMyAccount")

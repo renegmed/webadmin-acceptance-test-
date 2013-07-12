@@ -29,7 +29,7 @@ public class WebDriverWrapper implements WebDriver{
        	
        	if (browserToUse.trim().toLowerCase().equals("chrome")) {
    	       System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
-   	       objDriver = (WebDriver) new ChromeDriver();  	       
+   	       objDriver = new ChromeDriver();  	       
    	    
        	} else if (browserToUse.trim().toLowerCase().equals("chromehtml")){   
        		HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);       		

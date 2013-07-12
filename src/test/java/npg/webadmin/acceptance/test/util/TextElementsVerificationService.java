@@ -27,36 +27,46 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 	 
     private void verifyElementText(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	
-    	//System.out.println(" type " + item.type + " :  " + item.value + "   separator: " + separator +
-    	//" current url: " + webDriver.getCurrentUrl());
+    	System.out.println("+++++++ verifyElementText() type " + item.type + " :  " + item.value + "   separator: " + separator +
+    	" current url: " + webDriver.getCurrentUrl());
     	
     	try {
     		if (separator==null) {    		  	
     		    try{
-    		    	webDriver.findElement(By.xpath("//span[contains(text(), '" + item.value + "')]"));
-    		    } catch (NoSuchElementException e) {  // it could be label
+    		    	System.out.println("   ........ td ........"); 
+    		    	webDriver.findElement(By.xpath("//td[contains(text(), '" + item.value + "')]"));
+    		    } catch (NoSuchElementException e) {  // if not td, it could be span
     		    	try {
-    		    		webDriver.findElement(By.xpath("//label[contains(text(), '" + item.value + "')]"));
-    		    	} catch (NoSuchElementException e2) { // if not label, it could be td
+    		    		System.out.println("   ........ span ........"); 
+    		    		webDriver.findElement(By.xpath("//span[contains(text(), '" + item.value + "')]"));
+    		    	} catch (NoSuchElementException e2) { // if not span, it could be td
     		    		try {
-    		    			webDriver.findElement(By.xpath("//td[contains(text(), '" + item.value + "')]"));    		    		     
-    		    		} catch (NoSuchElementException e3) { // if not td, it could be p	 
+    		    			System.out.println("   ........ p ........"); 
+    		    			webDriver.findElement(By.xpath("//p[contains(text(), '" + item.value + "')]"));    		    		     
+    		    		} catch (NoSuchElementException e3) { // if not p, it could be p	 
     		    			 try {
-    		    				 webDriver.findElement(By.xpath("//p[contains(text(), '" + item.value + "')]"));
-    		    			 } catch (NoSuchElementException e4) { // if not p, it could be strong
+    		    				 System.out.println("   ........ label ........"); 
+    		    				 webDriver.findElement(By.xpath("//label[contains(text(), '" + item.value + "')]"));
+    		    			 } catch (NoSuchElementException e4) { // if not label, it could be strong
     		    				 try {
+    		    					 System.out.println("   ........ strong ........"); 
     		    					 webDriver.findElement(By.xpath("//strong[contains(text(), '" + item.value + "')]")); 
     		    				 } catch (NoSuchElementException e5) { // if not strong, it must be em
     		    					 try {
+    		    						 System.out.println("   ........ em ........"); 
     		    						 webDriver.findElement(By.xpath("//em[contains(text(), '" + item.value + "')]"));
     		    					 } catch (NoSuchElementException e6) { // if not em, it must be b
+    		    						 System.out.println("   ........ b ........"); 
     		    						 webDriver.findElement(By.xpath("//b[contains(text(), '" + item.value + "')]"));
     		    					 }
     		    				 }
     		    			 }
     		    		}
     		    	}
-    		    }    		    
+    		    }
+    		    
+    		    System.out.println("+++++++ end of verifyElementText() 1 ++++++++++++");
+    		    
     		    return;
     		}
     		
@@ -99,6 +109,9 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 		       assertTrue("Text '"+ item.value + "' should be present in the page. " , false);
     	   } 
     	}
+    	
+    	System.out.println("+++++++ end of verifyElementText() 2. ++++++++++++");
+    	
     }
    
     

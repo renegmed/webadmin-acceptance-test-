@@ -4,6 +4,8 @@ import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+
 import npg.webadmin.acceptance.test.WebDriverWrapper;
 
 
@@ -62,6 +64,7 @@ public class NavigationService {
 		webDriver.findElement(By.xpath("//span[contains(text(), 'Subscriptions and Purchases')][parent::a]")).click();  
 	 }
 	 
+	 
 	 public void toWebAdminMainPage(WebDriverWrapper webDriver) {
 	    String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment);
@@ -72,11 +75,37 @@ public class NavigationService {
 		 webDriver.findElement(By.xpath("//a[contains(text(), 'Main Personal Account Search')]")).click();  	
 	 }	 
 	 
+	 public void toWebAdminMainSiteLicenseSearch(WebDriverWrapper webDriver) {		 
+		 webDriver.findElement(By.xpath("//a[contains(text(), 'Main Site License Search')]")).click();  	
+	 }	 
+	 	 
+	 /*
+	  <SELECT NAME="site_id_op" SIZE=1><option VALUE="iseq" SELECTED>=
+    </option><option VALUE="swth">Begins With
+    </option><option VALUE="ewth">Ends With
+    </option><option VALUE="cont" selected>Contains</option></SELECT> 
+	  */
+	 public void toWebAdminMainSiteLicenseSearchSiteId(WebDriverWrapper webDriver, String siteId) {
+		
+		(new Select(webDriver.findElement(By.name("site_id_op")))).selectByValue("iseq");
+		 
+		WebElement searchElement = webDriver.findElement(By.xpath("//input[@name='site_id']"));		 
+		searchElement.sendKeys(siteId);		 
+		webDriver.findElement(By.id("search1")).click();
+		webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS); 	
+	 }	
+	 	 
+	 public void toWebAdminSlamsSiteGivenSiteId(WebDriverWrapper webDriver, String siteId) {
+		webDriver.findElement(By.xpath("//a[contains(text(), '"+ siteId + "')]")).click();
+	 }
+	 
+	 
+	 
 	 public void webAdminSearchOrcidAccount(WebDriverWrapper webDriver, String orcid) {
 		WebElement inputOrcidElement = webDriver.findElement(By.xpath("//input[@name='orcid_id']"));		 
 		inputOrcidElement.sendKeys(orcid);		 
 		webDriver.findElement(By.id("search2")).click();
-		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	 }
 	 
 	 public void toWebAdminMyAccountGivenEmail(WebDriverWrapper webDriver, String email) {
@@ -90,5 +119,143 @@ public class NavigationService {
 	   	// go to Work Details page 
 	   	webDriver.findElement(By.xpath("//a[contains(text(), 'Edit') and @title='Edit max logins']")).click(); 	 
 	 }	 
+	 
+	 
+	 
+	 public void toSlamsAccountSummary(WebDriverWrapper webDriver) {		 
+	 	webDriver.findElement(By.linkText("Account Summary")).click();	     
+	 }	 
+	 	 
+	 public void toSlamsAccountSummaryEditUserName(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);		  
+		webDriver.findElement(By.xpath(
+	    	"//a[@href ='" + prefix +"/nams/svc/mysiteaccount/edit/userName']")).click();      	
+	 }	 
+	 
+	 public void toSlamsAccountSummaryEditPassword(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);		  
+    	webDriver.findElement(By.xpath(
+    			"//a[@href ='" + prefix + "/nams/svc/mysiteaccount/edit/passwd']")).click();    
+	 }	 
+	 
+	 
+	 public void toSlamsAccountSummaryEditAccountDetails(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);		  
+    	webDriver.findElement(By.xpath(
+    			"//a[@href ='" + prefix + "/nams/svc/mysiteaccount/edit/details']")).click();   
+	 }	  
+	 
+	 public void toSlamsAccountSummaryEditOpenUrl(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);
+    	webDriver.findElement(By.xpath(
+    			"//a[@href ='" + prefix + "/nams/svc/mysiteaccount/edit/opurl']")).click();        	
+	 }	
+
+	 public void toSlamsAccountSummaryEditEmail(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);	   	
+	   	webDriver.findElement(By.xpath(
+    			"//a[@href ='" + prefix + "/nams/svc/mysiteaccount/edit/email']")).click();      
+	 }		 
+
+	 public void toSlamsAccountSummaryEditUserAddress(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountSummary(webDriver);
+    	webDriver.findElement(By.xpath(
+    			"//a[@href ='"+ prefix + "/nams/svc/mysiteaccount/edit/address']")).click();
+	 }
+	 
+
+	 public void toSlamsAccountAddress(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("Address Book")).click();
+	 }
+	 
+	 public void toSlamsAccountSummaryEditAddress(WebDriverWrapper webDriver) {
+		 toSlamsAccountAddress(webDriver);
+		 webDriver.findElement(By.linkText("Modify")).click();
+	 }	 
+ 	 
+	 
+	 public void toSlamsAccountLicenses(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("Licenses")).click(); 	
+	 }
+	 
+	 public void toSlamsAccountLicensesJournals(WebDriverWrapper webDriver, String prefix, String productCode) { 
+		 toSlamsAccountLicenses(webDriver);	    	
+		 webDriver.findElement(By.xpath(
+	    	  "//a[@href ='" + prefix + "/nams/svc/mysiteaccount/show/product_license?product=" + productCode + "']")).click();      		
+	 }	 
+	 
+	 
+	 public void toSlamsAccountArticleOnDemand(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("AOD")).click();  		 
+	 }
+	 
+	 public void toSlamsAccountArticleOnDemandLicenses(WebDriverWrapper webDriver, String licenseName) {
+		 toSlamsAccountArticleOnDemand(webDriver);
+		 webDriver.findElement(By.linkText(licenseName)).click();
+	 }
+	 
+	 
+	 public void toSlamsAccountIPRanges(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("IP Ranges")).click(); 	  		 
+	 }
+	 
+	 public void toSlamsAccountIPRangesEditIPRange(WebDriverWrapper webDriver) {
+		 toSlamsAccountIPRanges(webDriver);
+		 webDriver.findElement(By.linkText("Edit")).click();
+	 }
+	 
+	 
+	 public void toSlamsAccountTokens(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("Tokens")).click();  	  		 
+	 }
+	 
+	 public void toSlamsAccountTokensEditNatureToken(WebDriverWrapper webDriver) {
+		 toSlamsAccountTokens(webDriver);
+		 webDriver.findElement(By.xpath(
+	    	"//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='NPG']]")).click();
+	 }
+	 
+	 public void toSlamsAccountTokensEditPalgraveToken(WebDriverWrapper webDriver) {
+		 toSlamsAccountTokens(webDriver);
+	     webDriver.findElement(By.xpath(
+	    			"//input[@src ='/store/images/button_add.gif'][ancestor::form//input[@value='Palgrave Connect']]")).click();
+	 }	 
+	 
+	 public void toSlamsAccountTokensEditPalgraveConnectToken(WebDriverWrapper webDriver) {
+		 toSlamsAccountTokens(webDriver);
+	     webDriver.findElement(By.xpath(
+	    	 "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).click();
+	 }		 
+	  
+	 
+	 public void toSlamsAccountStatistics(WebDriverWrapper webDriver) {
+		webDriver.findElement(By.linkText("Statistics")).click();	  		 
+	 }	 	 
+	 
+	 
+	 public void toSlamsAccountEAlerts(WebDriverWrapper webDriver) {
+	    webDriver.findElement(By.linkText("E-alerts")).click();  		 
+	 }	 
+
+	 public void toSlamsAccountEAlertsSignup(WebDriverWrapper webDriver) {
+		toSlamsAccountEAlerts(webDriver);
+	    webDriver.findElement(By.linkText("Modify")).click(); 
+	 }	 
+	 
+	 public void toSlamsAccountCap(WebDriverWrapper webDriver) {
+		 webDriver.findElement(By.linkText("CAP")).click();	 
+	 }
+	 
+	 public void toSlamsAccountCapEditCap(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountCap(webDriver);
+    	webDriver.findElement(By.xpath(
+    	    	  "//a[contains(text(),'Modify')][@href ='" + prefix + "/nams/svc/mysiteaccount/editcapuserdetail']")).click();
+	 }
+	 
+	 public void toSlamsAccountCapEditPassword(WebDriverWrapper webDriver, String prefix) {
+		toSlamsAccountCap(webDriver);
+		webDriver.findElement(By.xpath(
+  	    	  "//a[contains(text(),'Modify')][@href ='" + prefix + "/nams/svc/mysiteaccount/editcapuserpassword']")).click();
+	 }
 	 
 }

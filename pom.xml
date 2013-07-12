@@ -90,7 +90,8 @@
 	<build>
 		<filters>
            <filter>src/main/resources/${run.environment}_data.properties</filter>          
-           <filter>src/main/resources/${run.environment}_personal_account_data.properties</filter>           
+           <filter>src/main/resources/${run.environment}_personal_account_data.properties</filter>
+           <filter>src/main/resources/${run.environment}_site_account_data.properties</filter>               
            <filter>src/main/resources/webadmin-selenium.properties</filter>      			
 		</filters>
 		<plugins>
