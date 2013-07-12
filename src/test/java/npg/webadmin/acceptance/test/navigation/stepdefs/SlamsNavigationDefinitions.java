@@ -1,10 +1,10 @@
 package npg.webadmin.acceptance.test.navigation.stepdefs; 
  
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.By;
+//import org.openqa.selenium.NoSuchElementException;
+//import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import com.google.inject.Inject;
 import cucumber.api.java.After;
@@ -151,7 +151,7 @@ public class SlamsNavigationDefinitions {
    
     @When("^on site account modify account address page$")
     public void on_site_account_modify_account_address_page() {
-    	navigationService.toSlamsAccountSummaryEditAddress(webDriver); 
+    	navigationService.toSlamsAccountAddressEditAddress(webDriver); 
     }
       
     
@@ -249,207 +249,212 @@ public class SlamsNavigationDefinitions {
     // Accessing SLAMS pages as Nature, Palgrave Journals or Palgrave Connects
     // Site Administrator (/nams/svc/mysiteaccount)
     //
-    //
-    
-    /*
-    
+    //  
+       
     @Given("^Nature site administrator is in site account login page$")
-    public void Nature_site_administrator_is_in_site_account_login_page(){  	
-    	String environment = resource.getString("environment");
- 	    String targetHost = resource.getString("host." + environment); 	    
-		super.getDriver().navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount");		
-		
+    public void Nature_site_administrator_is_in_site_account_login_page(){
+    	navigationService.toNatureMySiteAccount(webDriver); 
     }
     
     @Given("^Palgrave Journals site administrator is in site account login page$")
-    public void Palgrave_Journals_site_administrator_is_in_site_account_login_page(){  	
-    	String environment = resource.getString("environment");
- 	    String targetHost = resource.getString("host.palgravejournals." + environment); 	    
-		super.getDriver().navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount");		
-		
+    public void Palgrave_Journals_site_administrator_is_in_site_account_login_page(){
+    	navigationService.toPalgraveJournalsMySiteAccount(webDriver);	
     }
     
     @Given("^Palgrave Connect site administrator is in site account login page$")
-    public void Palgrave_Connect_site_administrator_is_in_site_account_login_page(){  	
-    	String environment = resource.getString("environment");
- 	    String targetHost = resource.getString("host.palgraveconnect." + environment); 	    
-		super.getDriver().navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount?siteName=pc");				
+    public void Palgrave_Connect_site_administrator_is_in_site_account_login_page(){
+    	navigationService.toPalgraveConnectMySiteAccount(webDriver);
     }
     
     @When("^site administrator logs in with name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void site_administrator_logs_in_with_name_and_password(String username, String password) throws Throwable {
-    	WebElement userIdElement = super.getDriver().findElement(By.name("userId"));  
-		WebElement passwordElement = super.getDriver().findElement(By.name("password"));  
-		userIdElement.sendKeys(username);
-		passwordElement.sendKeys(password);		
-		super.getDriver().findElement(By.xpath("//input[@type='image' and @src='/store/images/btn_login.gif']")).click(); 
+    	loginService.loginSiteAdministration(webDriver, username, password); 
     }
     
 
     @Then("^tabs are present at site administrator SLAMS page$")
-    public void tabs_are_present_at_site_administrator_SLAMS_page(List<FieldItem> items){
-    	super.processFieldItems(items); 
+    public void tabs_are_present_at_site_administrator_SLAMS_page(List<FieldItem> items){  
+    	webElementsVerificationService.processFieldItems(webDriver, items);
     }
     
     @And("^ensures these elements are present or not present in the Site Admin SLAMS current page$")
     public void ensures_these_elements_are_present_or_not_present_in_the_Site_Admin_SLAMS_current_page(List<FieldItem> items){
-    	super.processFieldItems(items); 
+    	webElementsVerificationService.processFieldItems(webDriver, items);
     }
 
     @When("^on site administrator account summary modify user name page$")
     public void on_site_administrator_account_summary_modify_user_name_page()  {
-       	driver.findElement(By.linkText("Account Summary")).click();	
-    	driver.findElement(By.xpath(
-    			"//a[@href ='/nams/svc/mysiteaccount/edit/userName']")).click();
+    	navigationService.toSlamsAccountSummaryEditUserName(webDriver, NON_WEBADMIN_URL_PREFIX); 
     }
 
     @When("^on site administrator account summary modify password page$")
     public void on_site_administrator_account_summary_modify_password_page(){
-    	 driver.findElement(By.linkText("Account Summary")).click();	
-    	 driver.findElement(By.xpath(
-   		      "//a[@href ='/nams/svc/mysiteaccount/edit/passwd']")).click();      
+    	navigationService.toSlamsAccountSummaryEditPassword(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	// driver.findElement(By.linkText("Account Summary")).click();	
+    	// driver.findElement(By.xpath(
+   		//      "//a[@href ='/nams/svc/mysiteaccount/edit/passwd']")).click();      
     }
     
     @When("^on site administrator account summary modify account details page$")
-    public void on_site_administrator_account_summary_modify_account_details_page() {      
-    	driver.findElement(By.linkText("Account Summary")).click(); 	
-    	driver.findElement(By.xpath(
-    			"//a[@href ='/nams/svc/mysiteaccount/edit/details']")).click();
+    public void on_site_administrator_account_summary_modify_account_details_page() { 
+    	navigationService.toSlamsAccountSummaryEditAccountDetails(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("Account Summary")).click(); 	
+    	//driver.findElement(By.xpath(
+    	//		"//a[@href ='/nams/svc/mysiteaccount/edit/details']")).click();
     }
     
     @When("^on site administrator account summary modify open url page$")
-    public void on_site_administrator_account_summary_modify_open_url_page() {    	    	
-    	driver.findElement(By.linkText("Account Summary")).click();    	
-    	driver.findElement(By.xpath(
-    			"//a[@href ='/nams/svc/mysiteaccount/edit/opurl']")).click();      
+    public void on_site_administrator_account_summary_modify_open_url_page() {
+    	navigationService.toSlamsAccountSummaryEditOpenUrl(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("Account Summary")).click();    	
+    	//driver.findElement(By.xpath(
+    	//		"//a[@href ='/nams/svc/mysiteaccount/edit/opurl']")).click();      
     }
     
     @When("^on site administrator account summary modify email page$")
     public void on_site_administrator_account_summary_modify_email_page() {      
-    	driver.findElement(By.linkText("Account Summary")).click();
-    	driver.findElement(By.xpath(
-    			"//a[@href ='/nams/svc/mysiteaccount/edit/email']")).click();      
+    	navigationService.toSlamsAccountSummaryEditEmail(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("Account Summary")).click();
+    	//driver.findElement(By.xpath(
+    	//		"//a[@href ='/nams/svc/mysiteaccount/edit/email']")).click();      
     }
     @When("^on site administrator account summary modify address page$")
-    public void on_site_administrator_account_summary_modify_address_page() {      
-    	driver.findElement(By.linkText("Account Summary")).click();
-    	driver.findElement(By.xpath(
-    			"//a[@href ='/nams/svc/mysiteaccount/edit/address']")).click();      
+    public void on_site_administrator_account_summary_modify_address_page() {
+    	navigationService.toSlamsAccountSummaryEditUserAddress(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("Account Summary")).click();
+    	//driver.findElement(By.xpath(
+    	//		"//a[@href ='/nams/svc/mysiteaccount/edit/address']")).click();      
     }    
     
     @When("^on site administrator account address page$")
     public void on_site_administrator_account_address_page() {
-    	driver.findElement(By.linkText("Address Book")).click();
+    	navigationService.toSlamsAccountAddress(webDriver); 
+    	//driver.findElement(By.linkText("Address Book")).click();
     }
    
     @When("^on site administrator account modify account address page$")
     public void on_site_administrator_account_modify_account_address_page() {
-    	driver.findElement(By.linkText("Address Book")).click();
-    	driver.findElement(By.linkText("Modify")).click();
+    	navigationService.toSlamsAccountAddressEditAddress(webDriver);
+    	//driver.findElement(By.linkText("Address Book")).click();
+    	//driver.findElement(By.linkText("Modify")).click();
     }
       
     
     @When("^on site administrator account licenses page$")
     public void on_site_administrator_account_licenses_page() {
-    	driver.findElement(By.linkText("Licenses")).click(); 	
+    	navigationService.toSlamsAccountLicenses(webDriver);
+    	//driver.findElement(By.linkText("Licenses")).click(); 	
     }
     
     @When("^on site administrator account license journal \"([^\"]*)\" page$")
     public void on_site_administrator_account_license_journal_page(String productCode) {
-    	
-    	driver.findElement(By.linkText("Licenses")).click(); 	    	
-    	driver.findElement(By.xpath(
-    	  "//a[@href ='/nams/svc/mysiteaccount/show/product_license?product=" + productCode + "']")).click();      	
+    	navigationService.toSlamsAccountLicensesJournals(webDriver, NON_WEBADMIN_URL_PREFIX, productCode);
+    	//driver.findElement(By.linkText("Licenses")).click(); 	    	
+    	//driver.findElement(By.xpath(
+    	//  "//a[@href ='/nams/svc/mysiteaccount/show/product_license?product=" + productCode + "']")).click();      	
     }
     
     @When("^on site administrator account article on demand page$")
-    public void on_site_administrator_account_article_on_demand_page() {
-		driver.findElement(By.linkText("AOD")).click();  	
+    public void on_site_administrator_account_article_on_demand_page() {    	
+    	navigationService.toSlamsAccountArticleOnDemand(webDriver);
+		//driver.findElement(By.linkText("AOD")).click();  	
     }
     
     @When("^on site administrator account article on demand license \"([^\"]*)\" page$")    
     public void on_site_administrator_account_article_on_demand_license_page(String licenseName) {
-    	driver.findElement(By.linkText("AOD")).click();
-    	driver.findElement(By.linkText(licenseName)).click();
+    	navigationService.toSlamsAccountArticleOnDemandLicenses(webDriver, licenseName);
+    	//driver.findElement(By.linkText("AOD")).click();
+    	//driver.findElement(By.linkText(licenseName)).click();
     }
     
     @When("^on site administrator account ip ranges page$")
     public void on_site_administrator_account_ip_ranges_page() {
-		driver.findElement(By.linkText("IP Ranges")).click(); 	
+    	navigationService.toSlamsAccountIPRanges(webDriver);
+		//driver.findElement(By.linkText("IP Ranges")).click(); 	
     }
     
     @When("^on site administrator account ip ranges modification page$")
     public void on_site_administrator_account_ip_ranges_modification_page() {    	
-    	driver.findElement(By.linkText("IP Ranges")).click();   	
-    	driver.findElement(By.linkText("Edit")).click();
+    	navigationService.toSlamsAccountIPRangesEditIPRange(webDriver);
+    	//driver.findElement(By.linkText("IP Ranges")).click();   	
+    	//driver.findElement(By.linkText("Edit")).click();
     }  
         
     
     @When("^on site administrator account tokens page$")
     public void on_site_administrator_account_tokens_page() {
-		driver.findElement(By.linkText("Tokens")).click();     	
+    	navigationService.toSlamsAccountTokens(webDriver);
+		//driver.findElement(By.linkText("Tokens")).click();     	
     }
 
     @When("^on site administrator account modify NPG token details page$")
     public void on_site_administrator_account_modify_NPG_token_details_page()  {    
-    	driver.findElement(By.linkText("Tokens")).click();
-    	driver.findElement(By.xpath(
-    			"//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='NPG']]")).click();  
+    	navigationService.toSlamsAccountTokensEditNatureToken(webDriver);
+    	//driver.findElement(By.linkText("Tokens")).click();
+    	//driver.findElement(By.xpath(
+    	//		"//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='NPG']]")).click();  
     }
 
      
     @When("^on site administrator account modify Palgrave Connect token details page$")
     public void on_site_administrator_account_modify_Palgrave_Connect_token_details_page()  {
-    	driver.findElement(By.linkText("Tokens")).click();
-    	driver.findElement(By.xpath(
-    			"//input[@src ='/store/images/button_modify.gif' and @alt='Change existing token value.']")).click();
+    	navigationService.toSlamsAccountTokensEditPalgraveConnectToken(webDriver);
+    	//driver.findElement(By.linkText("Tokens")).click();
+    	//driver.findElement(By.xpath(
+    	//		"//input[@src ='/store/images/button_modify.gif' and @alt='Change existing token value.']")).click();
     }
 
     @When("^on site administrator account modify Palgrave Journals token details page$")
     public void on_site_administrator_account_modify_Palgrave_Journals_token_details_page()  {
-    	driver.findElement(By.linkText("Tokens")).click();
-    	driver.findElement(By.xpath(
-    	  "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).click();
+    	navigationService.toSlamsAccountTokensEditPalgraveToken(webDriver);
+    	//driver.findElement(By.linkText("Tokens")).click();
+    	//driver.findElement(By.xpath(
+    	//  "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).click();
     }
     
     
     @When("^on site administrator account statistics page$")
     public void on_site_administrator_account_statistics_page() {
-		driver.findElement(By.linkText("Statistics")).click();
+    	navigationService.toSlamsAccountStatistics(webDriver);
+		//driver.findElement(By.linkText("Statistics")).click();
  	    	
     }
     
     @When("^on site administrator account e-alerts page$")
     public void on_site_administrator_account_e_alerts_page() {
-    	driver.findElement(By.linkText("E-alerts")).click();        	
+    	navigationService.toSlamsAccountEAlerts(webDriver);
+    	//driver.findElement(By.linkText("E-alerts")).click();        	
     }
     
     @When("^on site administrator account e-alerts signup page$")
     public void on_site_administrator_account_e_alerts_signup_page()  {
-    	driver.findElement(By.linkText("E-alerts")).click();
-    	driver.findElement(By.linkText("Modify")).click(); 
+    	navigationService.toSlamsAccountEAlertsSignup(webDriver);
+    	//driver.findElement(By.linkText("E-alerts")).click();
+    	//driver.findElement(By.linkText("Modify")).click(); 
     }
     
     
     @When("^on site administrator account cap page$")
     public void on_site_administrator_account_cap_page() {
-    	driver.findElement(By.linkText("CAP")).click();
+    	navigationService.toSlamsAccountCap(webDriver);
+    	//driver.findElement(By.linkText("CAP")).click();
     }
     
     @When("^on site administrator account modify cap page$")
     public void on_site_administrator_account_modify_cap_page() {
-    	driver.findElement(By.linkText("CAP")).click();
-    	driver.findElement(By.xpath(
-    	    	  "//a[contains(text(),'Modify')][@href ='/nams/svc/mysiteaccount/editcapuserdetail']")).click();
+    	navigationService.toSlamsAccountCapEditCap(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("CAP")).click();
+    	//driver.findElement(By.xpath(
+    	//    	  "//a[contains(text(),'Modify')][@href ='/nams/svc/mysiteaccount/editcapuserdetail']")).click();
     }
 
     @When("^on site administrator account modify cap password page$")
     public void on_site_administrator_account_modify_cap_password_page() {
-    	driver.findElement(By.linkText("CAP")).click();
-       	driver.findElement(By.xpath(
-  	    	  "//a[contains(text(),'Modify')][@href ='/nams/svc/mysiteaccount/editcapuserpassword']")).click();
+    	navigationService.toSlamsAccountCapEditPassword(webDriver, NON_WEBADMIN_URL_PREFIX);
+    	//driver.findElement(By.linkText("CAP")).click();
+       	//driver.findElement(By.xpath(
+  	    //	  "//a[contains(text(),'Modify')][@href ='/nams/svc/mysiteaccount/editcapuserpassword']")).click();
     }   
-
-	*/
+	
  
 }

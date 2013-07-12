@@ -6,7 +6,7 @@ Feature: Slams Navigation Verification
        I want to navigate into SLAMS pages
        so I can view and verify the page contents and links      
   
-  
+   
   Scenario: Webadmin Site Account SLAMS navigations sanity check
       
       Given user is logged-in as "${login.username}" password "${login.password}" for site account search
@@ -176,7 +176,7 @@ Feature: Slams Navigation Verification
       And ensures these elements are present or not present in the SLAMS current page
       ${slams.account.cap.password.modify.page.elements.common}
   
-        
+      
    Scenario: Nature Site administration SLAMS navigations sanity check
       
   	  Given Nature site administrator is in site account login page
@@ -185,8 +185,7 @@ Feature: Slams Navigation Verification
       ${slams.account.tab.page.elements.site_admin}
       And ensures these elements are present or not present in the Site Admin SLAMS current page  
       ${slams.account.summary.page.elements.site_admin}
- 
- 
+  
       
       When on site administrator account summary modify user name page      
       Then tabs are present at site administrator SLAMS page
@@ -335,7 +334,7 @@ Feature: Slams Navigation Verification
       And ensures these elements are present or not present in the Site Admin SLAMS current page
       ${slams.account.cap.password.modify.page.elements.common}
  
-   ${at.sign}sprint-3 
+    
    Scenario: Palgrave Journals Site administration SLAMS navigation sanity check
    
   	  Given Palgrave Journals site administrator is in site account login page
@@ -359,7 +358,7 @@ Feature: Slams Navigation Verification
       ${slams.account.tokens.modify.page.elements.site_admin.palgravejournals}
       
       
-   ${at.sign}sprint-4  
+    
    Scenario: Palgrave Connect Site administration SLAMS navigation sanity check
   
   	  Given Palgrave Connect site administrator is in site account login page

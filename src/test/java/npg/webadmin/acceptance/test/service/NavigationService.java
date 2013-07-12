@@ -65,6 +65,7 @@ public class NavigationService {
 	 }
 	 
 	 
+	 
 	 public void toWebAdminMainPage(WebDriverWrapper webDriver) {
 	    String environment = resource.getString("environment");
 		String targetHost = resource.getString("host." + environment);
@@ -168,7 +169,7 @@ public class NavigationService {
 		 webDriver.findElement(By.linkText("Address Book")).click();
 	 }
 	 
-	 public void toSlamsAccountSummaryEditAddress(WebDriverWrapper webDriver) {
+	 public void toSlamsAccountAddressEditAddress(WebDriverWrapper webDriver) {
 		 toSlamsAccountAddress(webDriver);
 		 webDriver.findElement(By.linkText("Modify")).click();
 	 }	 
@@ -256,6 +257,28 @@ public class NavigationService {
 		toSlamsAccountCap(webDriver);
 		webDriver.findElement(By.xpath(
   	    	  "//a[contains(text(),'Modify')][@href ='" + prefix + "/nams/svc/mysiteaccount/editcapuserpassword']")).click();
+	 }
+	 
+	 
+	 
+	 
+	 public void toNatureMySiteAccount(WebDriverWrapper webDriver) {
+	    String environment = resource.getString("environment");
+	 	String targetHost = resource.getString("host." + environment); 	    
+	 	webDriver.navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount"); 
+	 }
+
+	 public void toPalgraveJournalsMySiteAccount(WebDriverWrapper webDriver) { 
+    	String environment = resource.getString("environment");
+ 	    String targetHost = resource.getString("host.palgravejournals." + environment); 	    
+ 	    webDriver.navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount");		
+	 }
+
+	 public void toPalgraveConnectMySiteAccount(WebDriverWrapper webDriver) {  
+    	String environment = resource.getString("environment");
+ 	    String targetHost = resource.getString("host.palgraveconnect." + environment); 	    
+ 	    webDriver.navigate().to("http://" + targetHost + "/nams/svc/mysiteaccount?siteName=pc");
+		
 	 }
 	 
 }

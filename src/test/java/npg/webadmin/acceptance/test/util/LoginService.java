@@ -114,4 +114,15 @@ public class LoginService {
 		//driver.findElement(By.linkText("Logout"));
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	}
+	
+	
+	
+	public void loginSiteAdministration(WebDriverWrapper webDriver, String username, String password) {  
+		WebElement userIdElement = webDriver.findElement(By.name("userId"));  
+		WebElement passwordElement = webDriver.findElement(By.name("password"));  
+		userIdElement.sendKeys(username);
+		passwordElement.sendKeys(password);		
+		webDriver.findElement(By.xpath("//input[@type='image' and @src='/store/images/btn_login.gif']")).click(); 
+		webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); 
+	}	
 }
