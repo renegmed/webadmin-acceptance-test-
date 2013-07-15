@@ -31,7 +31,8 @@ public class WebElementsVerificationService {
 	public void processFieldItems(WebDriverWrapper webDriver, List<FieldItem> items) {
 	        for (FieldItem item : items) {      	  
 	        	//Constants.LOGGER.info("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 
-	        	System.out.println("  TYPE: " + item.type + "  VALUE: " + item.value + "  PRESENT: " + item.present); 
+	        	System.out.println("  TYPE: " + item.type + "  VALUE: " + item.value + 
+	        			"  PRESENT: " + item.present + "  CURRENT URL: " + webDriver.getCurrentUrl()); 
 	        	
 	        	if (item.type.toLowerCase().trim().equals(Constants.DEFINITION_TERM)) { 
 	        		textElementsVerificationService.verifyElementDt(webDriver, item);

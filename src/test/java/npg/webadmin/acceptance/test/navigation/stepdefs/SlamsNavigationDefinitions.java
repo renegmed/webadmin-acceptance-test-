@@ -1,6 +1,5 @@
 package npg.webadmin.acceptance.test.navigation.stepdefs; 
- 
-//import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 //import org.openqa.selenium.By;
 //import org.openqa.selenium.NoSuchElementException;
@@ -198,13 +197,12 @@ public class SlamsNavigationDefinitions {
      
     @When("^on site account modify Palgrave Connect token details page$")
     public void on_site_account_modify_Palgrave_Connect_token_details_page()  {
-    	navigationService.toSlamsAccountTokensEditPalgraveToken(webDriver);
-
+    	navigationService.toSlamsAccountTokensEditPalgraveConnectToken(webDriver);
     }
 
     @When("^on site account modify Palgrave Journals token details page$")
     public void on_site_account_modify_Palgrave_Journals_token_details_page()  {
-    	navigationService.toSlamsAccountTokensEditPalgraveConnectToken(webDriver); 
+    	navigationService.toSlamsAccountTokensEditPalgraveJournalToken(webDriver); 
     }
     
     
@@ -406,7 +404,7 @@ public class SlamsNavigationDefinitions {
 
     @When("^on site administrator account modify Palgrave Journals token details page$")
     public void on_site_administrator_account_modify_Palgrave_Journals_token_details_page()  {
-    	navigationService.toSlamsAccountTokensEditPalgraveToken(webDriver);
+    	navigationService.toSlamsAccountTokensEditPalgraveJournalToken(webDriver);
     	//driver.findElement(By.linkText("Tokens")).click();
     	//driver.findElement(By.xpath(
     	//  "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).click();
@@ -419,7 +417,7 @@ public class SlamsNavigationDefinitions {
 		//driver.findElement(By.linkText("Statistics")).click();
  	    	
     }
-    
+     
     @When("^on site administrator account e-alerts page$")
     public void on_site_administrator_account_e_alerts_page() {
     	navigationService.toSlamsAccountEAlerts(webDriver);

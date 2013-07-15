@@ -211,21 +211,26 @@ public class NavigationService {
 	 }
 	 
 	 public void toSlamsAccountTokensEditNatureToken(WebDriverWrapper webDriver) {
+		 //toNatureMySiteAccount(webDriver);
 		 toSlamsAccountTokens(webDriver);
 		 webDriver.findElement(By.xpath(
 	    	"//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='NPG']]")).click();
 	 }
 	 
-	 public void toSlamsAccountTokensEditPalgraveToken(WebDriverWrapper webDriver) {
+	 public void toSlamsAccountTokensEditPalgraveConnectToken(WebDriverWrapper webDriver) {
+		 //toPalgraveConnectMySiteAccount(webDriver);
 		 toSlamsAccountTokens(webDriver);
-	     webDriver.findElement(By.xpath(
-	    			"//input[@src ='/store/images/button_add.gif'][ancestor::form//input[@value='Palgrave Connect']]")).click();
+		 webDriver.findElement(By.xpath(
+	    			"//input[@src ='/store/images/button_modify.gif']")).submit(); //[ancestor::form//input[@value='Palgrave Connect']]")).click();
 	 }	 
 	 
-	 public void toSlamsAccountTokensEditPalgraveConnectToken(WebDriverWrapper webDriver) {
+	 
+	 // ????? 'Palgrave Connect' is wrong. Shouldn't it be 'Palgrave Journal"?
+	 public void toSlamsAccountTokensEditPalgraveJournalToken(WebDriverWrapper webDriver) {
+		 //toPalgraveJournalsMySiteAccount(webDriver);
 		 toSlamsAccountTokens(webDriver);
 	     webDriver.findElement(By.xpath(
-	    	 "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).click();
+	    	 "//input[@src ='/store/images/button_modify.gif']")).submit(); //[ancestor::form//input[@value='Palgrave Connect']]")).click();
 	 }		 
 	  
 	 
