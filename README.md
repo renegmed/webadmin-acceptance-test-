@@ -31,7 +31,7 @@ Running Specific Scenarios using Tag
 
 If you tag a selected scenarios with @sprint-7 and call this:
 
-  mvn clean resources:resources -Denvironment=test -Dbrowser=chromehtml -Dcucumber.options="--tags @sprint-2" test
+  mvn clean resources:resources -Denvironment=test -Dbrowser=htmlunit -Dcucumber.options="--tags @sprint-2" test
 
 only the scenarios with @sprint-7 will be ran. However if you call this:
  
