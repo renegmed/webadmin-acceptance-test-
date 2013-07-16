@@ -3,12 +3,15 @@ package npg.webadmin.acceptance.test;
 import java.util.ResourceBundle;
 import java.util.List;
 import java.util.Set;
+import java.io.File;
+import java.io.IOException;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.WebDriver;
@@ -23,6 +26,20 @@ public class WebDriverWrapper implements WebDriver{
 	private ResourceBundle resource = null; 	
 	private Object objDriver = null;	
 	 
+
+	public static final String Xport = System.getProperty("lmportal.xvfb.id",
+			":1");
+
+	// Setup Firefox binary to start in Xvfb
+	public static final File firefoxPath = new File(System.getProperty(
+			"lmportal.deploy.firefox.path", "/opt/firefox/firefox"));
+	
+	// Setup Chrome binary to start in Xvfb
+	//public static ChromeDriverService service;
+	public static final File chromePath = new File(System.getProperty(
+				"lmportal.deploy.chrome.path", "/opt/chrome/chrome"));	
+	
+	
 	public WebDriverWrapper(){  
 	    
 	    resource = ResourceBundle.getBundle("webadmin-selenium"); 
@@ -46,7 +63,13 @@ public class WebDriverWrapper implements WebDriver{
     		
     	} else if (browserToUse.trim().toLowerCase().equals("foxtrot")){
        		objDriver = (WebDriver) new FirefoxDriver();   
-       		
+       	
+    	} else if (browserToUse.trim().toLowerCase().equals("ff")){
+       		//objDriver = (WebDriver) new FirefoxDriver();   
+       		FirefoxBinary firefox = new FirefoxBinary(firefoxPath);
+    		firefox.setEnvironmentProperty("DISPLAY", Xport);
+    		objDriver = (WebDriver)new FirefoxDriver(firefox, null);
+    		
        	} else if (browserToUse.trim().toLowerCase().equals("foxtrot17")){
        		//webDriver = new FirefoxDriver();
        		objDriver = new HtmlUnitDriver(BrowserVersion.FIREFOX_17);
