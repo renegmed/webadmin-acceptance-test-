@@ -5,38 +5,33 @@ import java.util.List;
 import java.util.Set;
 import java.io.File;
 import java.io.IOException;
-
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import com.google.common.collect.ImmutableMap;
+import com.gargoylesoftware.htmlunit.BrowserVersion; 
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver; 
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.WebDriver.Navigation;
-//import org.openqa.selenium.WebDriver.TargetLocator;
-
+ 
 public class WebDriverWrapper implements WebDriver{
 	
 	private ResourceBundle resource = null; 	
 	private Object objDriver = null;	
 	 
 
-	public static final String Xport = System.getProperty("lmportal.xvfb.id",
-			":1");
+	private static final String Xport = System.getProperty("lmportal.xvfb.id",":1");
 
 	// Setup Firefox binary to start in Xvfb
-	public static final File firefoxPath = new File(System.getProperty(
+	private static final File firefoxPath = new File(System.getProperty(
 			"lmportal.deploy.firefox.path", "/opt/firefox/firefox"));
 	
-	// Setup Chrome binary to start in Xvfb
-	//public static ChromeDriverService service;
-	public static final File chromePath = new File(System.getProperty(
+	 
+	private static final File chromePath = new File(System.getProperty(
 				"lmportal.deploy.chrome.path", "/opt/chrome/chrome"));	
 	
 	
@@ -49,9 +44,19 @@ public class WebDriverWrapper implements WebDriver{
    	       System.setProperty("webdriver.chrome.driver", resource.getString("chromedriver.file"));   	    
    	       objDriver = new ChromeDriver();  	       
    	    
+       	} else if (browserToUse.trim().toLowerCase().equals("chrome-server")){   
+       		ChromeDriverService service = new ChromeDriverService.Builder().usingDriverExecutable(chromePath).
+					usingAnyFreePort().withEnvironment(ImmutableMap.of("DISPLAY",":1")).build();
+			try {
+				service.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			objDriver = new ChromeDriver(service);
+			
        	} else if (browserToUse.trim().toLowerCase().equals("chromehtml")){   
-       		HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);       		
-       		//((HtmlUnitDriver)objDriver).setJavascriptEnabled(true);
+       		HtmlUnitDriver htmlUnitDriver = new HtmlUnitDriver(BrowserVersion.CHROME); 
    		
     	} else if (browserToUse.trim().toLowerCase().equals("chrome16")){       		 
     		objDriver = new HtmlUnitDriver(BrowserVersion.CHROME_16);
@@ -64,8 +69,7 @@ public class WebDriverWrapper implements WebDriver{
     	} else if (browserToUse.trim().toLowerCase().equals("foxtrot")){
        		objDriver = (WebDriver) new FirefoxDriver();   
        	
-    	} else if (browserToUse.trim().toLowerCase().equals("ff")){
-       		//objDriver = (WebDriver) new FirefoxDriver();   
+    	} else if (browserToUse.trim().toLowerCase().equals("foxtrot-server")){       		
        		FirefoxBinary firefox = new FirefoxBinary(firefoxPath);
     		firefox.setEnvironmentProperty("DISPLAY", Xport);
     		objDriver = (WebDriver)new FirefoxDriver(firefox, null);

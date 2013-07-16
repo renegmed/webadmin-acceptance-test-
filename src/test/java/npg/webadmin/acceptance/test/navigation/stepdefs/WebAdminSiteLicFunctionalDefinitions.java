@@ -73,19 +73,40 @@ public class WebAdminSiteLicFunctionalDefinitions {
     	
     	// search for Site ID
     	navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId);
-    	
-    	webDriver.findElement(By.xpath(
-    	 "//a[contains(text(), 'active')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']"));
-    	
+    	try {
+    	  
+    	  webDriver.findElement(By.xpath(
+    	     "//a[text()[normalize-space(.)='active']][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']"));
+    	  
+    	} catch (NoSuchElementException e) {
+    	  
+    	   System.out.println("------ no such element --------");
+    	   
+    	   webDriver.findElement(By.xpath(
+    		    	   "//a[contains(text(), 'inactive')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + 
+    	               siteId + "']")).click();
+    	                                                     
+    	   WebDriverWait wait = new WebDriverWait(webDriver, 10);
+		   wait.until(ExpectedConditions.alertIsPresent()); 
+    	   
+		   Alert alert = webDriver.switchTo().alert();
+		   System.out.println("Activate alert box text --------> " + alert.getText() + " ----------");				   
+		   alert.accept();		   
+    	   // go back to search and this time the site is active
+    	   navigationService.toWebAdminMainPage(webDriver);
+    	   navigationService.toWebAdminMainSiteLicenseSearch(webDriver);
+    	   navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId);
+    	   System.out.println("----- Site should not be activated. ------");
+    	   
+    	}
 	}
  
- 
-	@Then("^alert message \"([^\"]*)\" should display on site \"([^\"]*)\"$")
+ 	 
+	@Then("^alert message \"([^\"]*)\" should display at site \"([^\"]*)\"$")     
 	public void functionalAssertMessage( String message, String siteId) {		 
 		 webDriver.findElement(By.xpath("//a[contains(text(), 'active')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']")).click();
 		 
-		 try{
-			 
+		 try{			 
 			 //System.out.println("====== wait for alert window to popup ===== ");
 		     
 			 WebDriverWait wait = new WebDriverWait(webDriver, 10);
@@ -96,10 +117,12 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		       //System.out.println("xxxxx alert is " + (alert == null?"null":"not null"));
 		       
 		       String alertText = alert.getText(); 
-		       //System.out.println("xxxxx " + alertText);
+		       
+		       System.out.println("Alert box text --------> " + alertText + " ----------");
+		       System.out.println("Alert param message ---> " + message + " ----------");
 		       alert.accept();
 		     
-		       assertTrue("Alert message is invalid.", message.equals(alertText));
+		       assertTrue("Alert message is invalid.", message.trim().equals(alertText.trim()));
 		       
 		     } catch (NoAlertPresentException e2) {
 		    	 System.out.println("++++++ NoAlertPresentException " + e2.getMessage());
@@ -117,6 +140,21 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		 
 	}                
 	  
+	@And("^confirm window message \"([^\"]*)\"$")
+	public void confirmWindowMessage(String message) {
+		Alert alert = webDriver.switchTo().alert();
+		String alertText = alert.getText();
+		//System.out.println("Confirmation message -------> " + alertText);
+		//System.out.println("   Parameter message -------> " + message);
+		assertTrue("Confirmation message is not correct.", message.trim().equals(alertText.trim()));
+		alert.accept();	     	    
+	}
+	
+
+	@And("^display confirmation page message \"([^\"]*)\"$")
+	public void displayConfirmationPageMessage(String message) {
+		webDriver.findElement(By.xpath("//td[contains(text(), '" + message + "')]"));
+	}
 	
 	@And("^site \"([^\"]*)\" is still active$") 
 	public void functionalSiteNotAllowDeactivation(String siteId) {
