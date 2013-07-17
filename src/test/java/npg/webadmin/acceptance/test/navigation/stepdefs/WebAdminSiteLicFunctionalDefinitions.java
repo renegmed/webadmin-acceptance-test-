@@ -21,6 +21,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.And;
 import npg.webadmin.acceptance.test.util.LoginService;
+//import npg.webadmin.acceptance.test.util.TextElementsVerificationService;
 import npg.webadmin.acceptance.test.service.NavigationService;
 import npg.webadmin.acceptance.test.util.WebDriverFactory;
 import npg.webadmin.acceptance.test.WebDriverWrapper;
@@ -63,7 +64,7 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		webDriver.findElement(By.linkText("Logout"));		   
 	}
 	
-	@When("^user searches site \"([^\"]*)\" with existing licenses and tries to deactivate it$")
+	@When("^user searches site \"([^\"]*)\" with existing active license$")
 	public void functionalSearchSiteId(String siteId) {
 		 // to WebAdmin main page
     	navigationService.toWebAdminMainPage(webDriver);
@@ -95,15 +96,47 @@ public class WebAdminSiteLicFunctionalDefinitions {
     	   // go back to search and this time the site is active
     	   navigationService.toWebAdminMainPage(webDriver);
     	   navigationService.toWebAdminMainSiteLicenseSearch(webDriver);
-    	   navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId);
-    	   System.out.println("----- Site should not be activated. ------");
-    	   
+    	   navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId); 
     	}
 	}
  
- 	 
-	@Then("^alert message \"([^\"]*)\" should display at site \"([^\"]*)\"$")     
-	public void functionalAssertMessage( String message, String siteId) {		 
+	@When("user searches site \"([^\"]*)\" with existing inactive license$")
+	public void functionalSearchAndActivateSite(String siteId) {
+		 // to WebAdmin main page
+    	navigationService.toWebAdminMainPage(webDriver);    	
+    	// select 'Main Site License Search
+    	navigationService.toWebAdminMainSiteLicenseSearch(webDriver);    	
+    	// search for Site ID
+    	navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId);
+    	try {
+    	  
+    	  webDriver.findElement(By.xpath(
+    	     "//a[text()[normalize-space(.)='inactive']][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']"));
+    	  
+    	} catch (NoSuchElementException e) {
+    	  
+    	   // the license is currently active. make it inactive	
+    	   
+    	   webDriver.findElement(By.xpath(
+    		    	   "//a[contains(text(), 'active')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + 
+    	               siteId + "']")).click();
+    	                                                     
+    	   WebDriverWait wait = new WebDriverWait(webDriver, 10);
+		   wait.until(ExpectedConditions.alertIsPresent()); 
+    	   
+		   Alert alert = webDriver.switchTo().alert();
+		   System.out.println("Activate alert box text --------> " + alert.getText() + " ----------");				   
+		   alert.accept();		   
+
+		   // go back to search and this time the site is inactive
+    	   navigationService.toWebAdminMainPage(webDriver);
+    	   navigationService.toWebAdminMainSiteLicenseSearch(webDriver);
+    	   navigationService.toWebAdminMainSiteLicenseSearchSiteId(webDriver, siteId); 
+    	}		
+	}
+	 
+	@Then("^confirm window message \"([^\"]*)\" should display at site \"([^\"]*)\"$")     
+	public void functionalAssertConfirmWindowMessage( String message, String siteId) {		 
 		 webDriver.findElement(By.xpath("//a[contains(text(), 'active')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']")).click();
 		 
 		 try{			 
@@ -139,7 +172,7 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		 } 
 		 
 	}                
-	  
+/*	  
 	@And("^confirm window message \"([^\"]*)\"$")
 	public void confirmWindowMessage(String message) {
 		Alert alert = webDriver.switchTo().alert();
@@ -149,15 +182,40 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		assertTrue("Confirmation message is not correct.", message.trim().equals(alertText.trim()));
 		alert.accept();	     	    
 	}
-	
+*/	
 
 	@And("^display confirmation page message \"([^\"]*)\"$")
-	public void displayConfirmationPageMessage(String message) {
+	public void functionalDisplayConfirmationPageMessage(String message) {
 		webDriver.findElement(By.xpath("//td[contains(text(), '" + message + "')]"));
 	}
-	
+
+/*	
 	@And("^site \"([^\"]*)\" is still active$") 
 	public void functionalSiteNotAllowDeactivation(String siteId) {
 		webDriver.findElement(By.xpath("//a[contains(text(), 'active')][@href='webAdmin.do?initparam=updateSiteAccountStatus&site_account_id=" + siteId + "']"));
-	}    
+	} 
+*/	
+	
+	
+	@Given("^Nature site administrator is in login page$")
+    public void functionalSiteAdminToNature() {
+		navigationService.toNatureMySiteAccount(webDriver); 
+	}
+	
+	@When("^site administrator logs in with username \"([^\"]*)\" and password \"([^\"]*)\"$")
+	public void functionalSiteAdminLogsIn(String username, String password) {
+		loginService.loginSiteAdministration(webDriver, username, password); 
+	}
+	
+    @Then("^site administrator should not be able to login with page message \"([^\"]*)\"$") 
+    public void functionalSiteAdminNotAbleToLogin(String messageText) {
+    	webDriver.findElement(By.xpath("//span[contains(text(), '" + messageText + "')]"));
+    }
+    
+    @Then("^site administrator should be able to login displaying \"([^\"]*)\".$")
+    public void functionSiteAdminAbleToLogin(String text) {    	 
+    	webDriver.findElement(By.xpath("//p[contains(text(), '" + text + "')]"));
+    }
+    
+    
 }
