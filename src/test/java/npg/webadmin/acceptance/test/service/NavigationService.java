@@ -221,7 +221,7 @@ public class NavigationService {
 		 //toPalgraveConnectMySiteAccount(webDriver);
 		 toSlamsAccountTokens(webDriver);
 		 webDriver.findElement(By.xpath(
-	    			"//input[@src ='/store/images/button_modify.gif']")).submit(); //[ancestor::form//input[@value='Palgrave Connect']]")).click();
+	    			"//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Connect']]")).submit();
 	 }	 
 	 
 	 
@@ -230,7 +230,7 @@ public class NavigationService {
 		 //toPalgraveJournalsMySiteAccount(webDriver);
 		 toSlamsAccountTokens(webDriver);
 	     webDriver.findElement(By.xpath(
-	    	 "//input[@src ='/store/images/button_modify.gif']")).submit(); //[ancestor::form//input[@value='Palgrave Connect']]")).click();
+	    	 "//input[@src ='/store/images/button_modify.gif'][ancestor::form//input[@value='Palgrave Journals']]")).submit();
 	 }		 
 	  
 	 
