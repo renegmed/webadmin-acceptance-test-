@@ -2,18 +2,21 @@ package npg.webadmin.acceptance.test.navigation.stepdefs;
 
 
 //import java.util.concurrent.TimeUnit;
+import java.util.List;
 import java.util.Set;
 import java.util.Iterator;
 import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.NoAlertPresentException;
-import com.google.inject.Inject;
+import com.google.inject.Inject; 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -23,21 +26,26 @@ import cucumber.api.java.en.And;
 import npg.webadmin.acceptance.test.util.LoginService;
 //import npg.webadmin.acceptance.test.util.TextElementsVerificationService;
 import npg.webadmin.acceptance.test.service.NavigationService;
+import npg.webadmin.acceptance.test.service.SearchService;
 import npg.webadmin.acceptance.test.util.WebDriverFactory;
 import npg.webadmin.acceptance.test.WebDriverWrapper;
+import npg.webadmin.acceptance.test.util.WebElementsVerificationBaseAbstract.SearchItem;
 
 public class WebAdminSiteLicFunctionalDefinitions {
 	private WebDriverWrapper webDriver;	
 	private LoginService loginService;
 	private NavigationService navigationService;
+	private SearchService searchService;
 	
 	@Inject
 	public WebAdminSiteLicFunctionalDefinitions(
 			LoginService loginService,
-			NavigationService navigationService) {
+			NavigationService navigationService,
+			SearchService searchService) {
 		
 		this.loginService = loginService;
 		this.navigationService = navigationService;
+		this.searchService = searchService;
 	}
 	
 	@Before(value="@InitializeWebAdminSLFunc")
@@ -216,6 +224,110 @@ public class WebAdminSiteLicFunctionalDefinitions {
     public void functionSiteAdminAbleToLogin(String text) {    	 
     	webDriver.findElement(By.xpath("//p[contains(text(), '" + text + "')]"));
     }
+     
+        
+    @When("^user is on site account search page to fill search fields$")
+    public void searchSiteAccounts() {
+    	 // to WebAdmin main page
+    	navigationService.toWebAdminMainPage(webDriver);
+    	
+    	// select 'Main Site License Search
+    	navigationService.toWebAdminMainSiteLicenseSearch(webDriver);
+    }
     
+    @Then("^ensure the organization \"([^\"]*)\" is in search result page given the following conditions$")
+    public void searchSiteAccountResult(String result, List<SearchItem> items) {
+    	for (SearchItem item : items) {
+       		
+    		System.out.println(
+     				  "   item field: " + item.field +
+     				"\n   item operation condition: " + item.operation +     				
+     				"\n   item field value: " + item.fieldvalue
+     				);   	
+    		
+       		String operationField = searchService.mapOperationFieldSiteLicense(item.field);
+       		String operationCondition = searchService.mapOperationConditionSiteLicense(item.operation);
+    		String inputField = searchService.mapInputFieldSiteLicense(item.field);
+    		String inputFieldValue = item.fieldvalue; 
+    
+       		System.out.println(
+       				  "   operationField: " + operationField +
+       				"\n   operationCondition: " + operationCondition +
+       				"\n   inputField: " + inputField +   	
+       				"\n   inputFieldValue: " + inputFieldValue
+       				);   		    		
+     
+    		//inputAndSubmitFieldForSite(
+     		//	     operationField, 
+     		//        operationCondition,
+     		//        inputField,
+     		//        inputFieldValue,	
+     		//       result);
+    		
+    		searchService.fillAndSubmitInputField(
+        			webDriver,
+     				operationField,
+     				operationCondition,
+     	    	    inputField,
+     	    	    inputFieldValue,
+     	    	    "//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]"  
+     	     );  
+    		
+    		navigationService.navigateToWebAdminMainSiteLicenseSearch(webDriver);
+    	}
+    }
+    
+    @Then("^ensure the organization \"([^\"]*)\" is in site administrator result page given the following conditions$")
+    public void searchSiteAdminResult(String result, List<SearchItem> items) {
+    	for (SearchItem item : items) {
+       		
+    		System.out.println(
+     				  "   item field: " + item.field +
+     				"\n   item operation condition: " + item.operation +     				
+     				"\n   item field value: " + item.fieldvalue
+     				);   	
+    		
+       		String operationField = searchService.mapOperationFieldSiteLicense(item.field);
+       		String operationCondition = searchService.mapOperationConditionSiteLicense(item.operation);
+    		String inputField = searchService.mapInputFieldSiteLicense(item.field);
+    		String inputFieldValue = item.fieldvalue; 
+    
+       		System.out.println(
+       				  "   operationField: " + operationField +
+       				"\n   operationCondition: " + operationCondition +
+       				"\n   inputField: " + inputField +   	
+       				"\n   inputFieldValue: " + inputFieldValue
+       				);   		    		
+     
+       		searchService.inputAndSubmitFieldForSiteAdmin(
+       				webDriver, 
+       				operationField, 
+       				operationCondition, 
+       				inputField, 
+       				inputFieldValue, 
+       				"//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]"); 
+       		
+    		navigationService.navigateToWebAdminMainSiteLicenseSearch(webDriver);
+    	}
+    }
+    
+ /*   
+    private void inputAndSubmitFieldForSite(
+  		  String operationField, 
+  		  String operationCondition,
+  		  String inputField,
+  		  String inputFieldValue,
+  		  final String elementValueToSearch) {
+  	
+    	searchService.fillAndSubmitInputField(
+    			webDriver,
+ 				operationField,
+ 				operationCondition,
+ 	    	    inputField,
+ 	    	    inputFieldValue,
+ 	    	    "//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]"  
+ 	     );  
+    }
+*/    
     
 }
