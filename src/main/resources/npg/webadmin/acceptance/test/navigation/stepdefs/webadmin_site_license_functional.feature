@@ -3,7 +3,7 @@ ${at.sign}CloseWebAdminSLFunc
 
 Feature: Main Site License Search verifaction
 
-  ${at.sign}sprint-3 
+  ${at.sign}sprint-1 
   Scenario: 1.1 Search site account based on site ID, user Id, organization, IP address   
      Given webadmin user logs in with username "${login.username}" password "${login.password}"   
      When user is on site account search page to fill search fields    
@@ -11,7 +11,7 @@ Feature: Main Site License Search verifaction
         
         ${site.account.search.scenario.site}
   
-  ${at.sign}sprint-3
+  ${at.sign}sprint-1
   Scenario: 1.2 Search site account given site administrator attributes 
      Given webadmin user logs in with username "${login.username}" password "${login.password}"   
      When user is on site account search page to fill search fields    
