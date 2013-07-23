@@ -114,7 +114,7 @@ public class SearchService {
   		} else if (condition.toLowerCase().trim().equals("="))         { return "iseq";	
   		} else if (condition.toLowerCase().trim().equals(">="))        { return "gteq";
   		} else if (condition.toLowerCase().trim().equals("<="))        { return "lteq";
-  		} else { return ""; }
+  		} else { return "iseq"; }
     }
     
     public String mapInputFieldPersonalAccount(String field) {
@@ -137,14 +137,14 @@ public class SearchService {
     		String searchString) { 
 		
     	// field has no operation e.g. 'Begins With', 'Ends With' 
-       //if (operationField !=null && !operationField.isEmpty()) {
+       if (operationField !=null && !operationField.isEmpty()) {
     	    // by default is should be '='
-       if (operationField.equals(":SELECT:")) {	   
+       //if (operationField.equals(":SELECT:")) {	   
            // change the selector (option) in the select tag  
     	   (new Select(driver.findElement(By.name(operationField)))).selectByValue(operationCondition);
        }
        
-       System.out.println(" ===== Input Field: " + inputField + "    Input Field Value: " +  inputFieldValue);
+       //System.out.println(" ===== Input Field: " + inputField + "    Input Field Value: " +  inputFieldValue);
        
        // key input on User ID field
        driver.findElement(By.name(inputField)).sendKeys(inputFieldValue);        

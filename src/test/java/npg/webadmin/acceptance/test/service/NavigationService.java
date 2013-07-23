@@ -76,14 +76,20 @@ public class NavigationService {
 		 webDriver.findElement(By.xpath("//a[contains(text(), 'Main Personal Account Search')]")).click();  	
 	 }	 
 	 
+	 public void navigateToWebAdminPersonalAccountSearch(WebDriverWrapper webDriver) {
+		 String environment = resource.getString("environment");
+	 	 String targetHost = resource.getString("host." + environment); 	    
+	 	 webDriver.navigate().to("http://" + targetHost + "/webadmin/webAdmin.do?initparam=personalAccountSearch"); 
+	 }
+	 
 	 public void toWebAdminMainSiteLicenseSearch(WebDriverWrapper webDriver) {		 
 		 webDriver.findElement(By.xpath("//a[contains(text(), 'Main Site License Search')]")).click();  	
 	 }	 
 	
 	 public void navigateToWebAdminMainSiteLicenseSearch(WebDriverWrapper webDriver) {  
-	    	String environment = resource.getString("environment");
-	 	    String targetHost = resource.getString("host." + environment); 	    
-	 	    webDriver.navigate().to("http://" + targetHost + "/webadmin/webAdmin.do?initparam=initSiteAcct");			
+	   	String environment = resource.getString("environment");
+	 	String targetHost = resource.getString("host." + environment); 	    
+	 	webDriver.navigate().to("http://" + targetHost + "/webadmin/webAdmin.do?initparam=initSiteAcct");			
 	 }
 	 
 	 /*

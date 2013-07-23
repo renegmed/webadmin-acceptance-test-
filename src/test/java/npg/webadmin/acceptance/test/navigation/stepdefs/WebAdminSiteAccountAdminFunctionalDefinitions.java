@@ -30,15 +30,16 @@ import npg.webadmin.acceptance.test.service.SearchService;
 import npg.webadmin.acceptance.test.util.WebDriverFactory;
 import npg.webadmin.acceptance.test.WebDriverWrapper;
 import npg.webadmin.acceptance.test.util.WebElementsVerificationBaseAbstract.SearchItem;
+import npg.webadmin.acceptance.test.util.WebElementsVerificationBaseAbstract.License;
 
-public class WebAdminSiteLicFunctionalDefinitions {
+public class WebAdminSiteAccountAdminFunctionalDefinitions {
 	private WebDriverWrapper webDriver;	
 	private LoginService loginService;
 	private NavigationService navigationService;
 	private SearchService searchService;
 	
 	@Inject
-	public WebAdminSiteLicFunctionalDefinitions(
+	public WebAdminSiteAccountAdminFunctionalDefinitions(
 			LoginService loginService,
 			NavigationService navigationService,
 			SearchService searchService) {
@@ -159,14 +160,14 @@ public class WebAdminSiteLicFunctionalDefinitions {
 		       
 		       String alertText = alert.getText(); 
 		       
-		       System.out.println("Alert box text --------> " + alertText + " ----------");
-		       System.out.println("Alert param message ---> " + message + " ----------");
+		       //System.out.println("Alert box text --------> " + alertText + " ----------");
+		       //System.out.println("Alert param message ---> " + message + " ----------");
 		       alert.accept();
 		     
 		       assertTrue("Alert message is invalid.", message.trim().equals(alertText.trim()));
 		       
 		     } catch (NoAlertPresentException e2) {
-		    	 System.out.println("++++++ NoAlertPresentException " + e2.getMessage());
+		    	 //System.out.println("++++++ NoAlertPresentException " + e2.getMessage());
 		    	 assertTrue("No Alert Present Exception", false);
 		     } catch (Exception e2) {
 		    	 assertTrue("General exception generated during alert verification", false);
@@ -239,30 +240,25 @@ public class WebAdminSiteLicFunctionalDefinitions {
     public void searchSiteAccountResult(String result, List<SearchItem> items) {
     	for (SearchItem item : items) {
        		
-    		System.out.println(
-     				  "   item field: " + item.field +
-     				"\n   item operation condition: " + item.operation +     				
-     				"\n   item field value: " + item.fieldvalue
-     				);   	
+    		//System.out.println(
+     		//		  "   item field: " + item.field +
+     		//		"\n   item operation condition: " + item.operation +     				
+     		//		"\n   item field value: " + item.fieldvalue
+     		//		);   	
     		
        		String operationField = searchService.mapOperationFieldSiteLicense(item.field);
        		String operationCondition = searchService.mapOperationConditionSiteLicense(item.operation);
     		String inputField = searchService.mapInputFieldSiteLicense(item.field);
     		String inputFieldValue = item.fieldvalue; 
     
-       		System.out.println(
-       				  "   operationField: " + operationField +
-       				"\n   operationCondition: " + operationCondition +
-       				"\n   inputField: " + inputField +   	
-       				"\n   inputFieldValue: " + inputFieldValue
-       				);   		    		
+       		//System.out.println(
+       		//		  "   operationField: " + operationField +
+       		//		"\n   operationCondition: " + operationCondition +
+       		//		"\n   inputField: " + inputField +   	
+       		//		"\n   inputFieldValue: " + inputFieldValue
+       		//		);   		    		
      
-    		//inputAndSubmitFieldForSite(
-     		//	     operationField, 
-     		//        operationCondition,
-     		//        inputField,
-     		//        inputFieldValue,	
-     		//       result);
+    		 
     		
     		searchService.fillAndSubmitInputField(
         			webDriver,
@@ -281,23 +277,23 @@ public class WebAdminSiteLicFunctionalDefinitions {
     public void searchSiteAdminResult(String result, List<SearchItem> items) {
     	for (SearchItem item : items) {
        		
-    		System.out.println(
-     				  "   item field: " + item.field +
-     				"\n   item operation condition: " + item.operation +     				
-     				"\n   item field value: " + item.fieldvalue
-     				);   	
+    		//System.out.println(
+     		//		  "   item field: " + item.field +
+     		//		"\n   item operation condition: " + item.operation +     				
+     		//		"\n   item field value: " + item.fieldvalue
+     		//		);   	
     		
        		String operationField = searchService.mapOperationFieldSiteLicense(item.field);
        		String operationCondition = searchService.mapOperationConditionSiteLicense(item.operation);
     		String inputField = searchService.mapInputFieldSiteLicense(item.field);
     		String inputFieldValue = item.fieldvalue; 
     
-       		System.out.println(
-       				  "   operationField: " + operationField +
-       				"\n   operationCondition: " + operationCondition +
-       				"\n   inputField: " + inputField +   	
-       				"\n   inputFieldValue: " + inputFieldValue
-       				);   		    		
+       		//System.out.println(
+       		//		  "   operationField: " + operationField +
+       		//		"\n   operationCondition: " + operationCondition +
+       		//		"\n   inputField: " + inputField +   	
+       		//		"\n   inputFieldValue: " + inputFieldValue
+       		//		);   		    		
      
        		searchService.inputAndSubmitFieldForSiteAdmin(
        				webDriver, 
@@ -309,25 +305,31 @@ public class WebAdminSiteLicFunctionalDefinitions {
        		
     		navigationService.navigateToWebAdminMainSiteLicenseSearch(webDriver);
     	}
-    }
+    } 
     
- /*   
-    private void inputAndSubmitFieldForSite(
-  		  String operationField, 
-  		  String operationCondition,
-  		  String inputField,
-  		  String inputFieldValue,
-  		  final String elementValueToSearch) {
-  	
-    	searchService.fillAndSubmitInputField(
-    			webDriver,
- 				operationField,
- 				operationCondition,
- 	    	    inputField,
- 	    	    inputFieldValue,
- 	    	    "//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]"  
- 	     );  
-    }
-*/    
     
+    
+    @Then("^user goes to site licenses list page and delete the following$")
+    public void deleteSiteLicenses(List<License> license) {
+    	
+    }    
+      
+ 
+    @And("^add the following new license and verify it is was added$")
+    public void addSiteLicenses(List<License> license) {
+    
+    }
+              
+
+    @When("^user is at site license list page$")
+    public void toSiteLicenseListPage() {
+    	
+    }
+  
+ 
+    @And("^add the following archived license and verify it is was added$")     
+    public void addArchivedSiteLicenses(List<License> license) {
+    	
+    }
+     
 }

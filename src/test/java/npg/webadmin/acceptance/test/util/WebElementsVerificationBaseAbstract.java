@@ -6,7 +6,7 @@ import java.util.Map;
 import npg.webadmin.acceptance.test.Constants;
  
 
-public abstract class WebElementsVerificationBaseAbstract {
+public class WebElementsVerificationBaseAbstract {
 	  
 	private List<SearchItem> searchItemList = null;  
 	private List<SearchItem> getSearchItemList() { return searchItemList; }
@@ -14,6 +14,9 @@ public abstract class WebElementsVerificationBaseAbstract {
 	private List<FieldItem> fieldItemList = null;  
 	private List<FieldItem> getFieldItemList() { return fieldItemList; }
   
+	private List<License> licenseList = null;  
+	private List<License> getLicenseList() { return licenseList; }
+	
 	private Map<String, String> attributes = null;
 	
 	public class SearchItem {
@@ -22,7 +25,15 @@ public abstract class WebElementsVerificationBaseAbstract {
 	   	public String fieldvalue;
 	   	public String remark;
 	}    
-	  
+	
+	public class License {
+	   	public String licenseId;
+	   	public String productCode;
+	   	public String startDate;
+	   	public String endDate;
+	   	public String remark;
+	}   
+	
 	public class FieldItem {
 	   	public String fieldname;
 	   	public String value;

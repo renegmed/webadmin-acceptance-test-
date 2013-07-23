@@ -44,5 +44,29 @@ Feature: Main Site License Search verifaction
   Scenario: 2.4. Verify site administrator is able to login when Scenario 3 deactivated the site   
      Given Nature site administrator is in login page
      When site administrator logs in with username "${site.admin.login.username}" and password "${site.admin.login.password}"
-     Then site administrator should be able to login displaying "Nature Publishing - 14312". 
-                         
+     Then site administrator should be able to login displaying "Nature Publishing - 14312".
+     
+     
+  ${at.sign}sprint-4                    
+  Scenario: 3.0. Deleting and adding different types of site licenses 
+  
+     Given webadmin user logs in with username "${login.username}" password "${login.password}"        
+     When user searches site "${slams.site.id}" with existing active license 
+     Then user goes to site licenses list page and delete the following
+          
+        ${site.account.licenses.to.delete}        
+     
+     And add the following new license and verify it is was added     
+        
+        ${site.account.licenses.to.add}               
+  
+     When user is at site license list page
+     Then user goes to site licenses list page and delete the following
+  
+        ${site.account.archived.licenses.to.delete}
+     
+     And add the following archived license and verify it is was added     
+        
+        ${site.account.archived.licenses.to.add} 
+        
+                                
