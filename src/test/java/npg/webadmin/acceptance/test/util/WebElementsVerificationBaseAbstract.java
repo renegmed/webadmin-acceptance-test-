@@ -23,6 +23,7 @@ public class WebElementsVerificationBaseAbstract {
 	   	public String field;
 	   	public String operation;
 	   	public String fieldvalue;
+	   	public String result;
 	   	public String remark;
 	}    
 	

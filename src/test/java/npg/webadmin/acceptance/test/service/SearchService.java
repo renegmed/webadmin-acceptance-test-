@@ -102,7 +102,7 @@ public class SearchService {
    		} else if (field.toLowerCase().trim().equals("email"))      { return "email_op";        	  
    		} else if (field.toLowerCase().trim().equals("first name")) { return "fname_op"; 
    		} else if (field.toLowerCase().trim().equals("last name"))  { return "lname_op"; 
-   		} else if (field.toLowerCase().trim().equals("eclipse id")) { return "account_user_eclipse_id_op";
+   		} else if (field.toLowerCase().trim().equals("eclipse id")) { return "account_user_eclipse_id_op";   		
    		} else { return ""; } 
     	
     }
@@ -135,11 +135,15 @@ public class SearchService {
     		String inputField,
     		String inputFieldValue, 
     		String searchString) { 
+	
+	  System.out.println(" ===== fillAndSubmitInputField()  Input Field: " + inputField
+			  + "    Input Field Value: " +  inputFieldValue
+			  + "    Operation field: " +  operationField
+			  + "    Operation condition: " +  operationCondition);
 		
     	// field has no operation e.g. 'Begins With', 'Ends With' 
-       if (operationField !=null && !operationField.isEmpty()) {
-    	    // by default is should be '='
-       //if (operationField.equals(":SELECT:")) {	   
+       //if (operationField !=null && !operationField.isEmpty()) {
+       if (operationCondition !=null && !operationCondition.isEmpty() && !operationCondition.equals("iseq")) {	  
            // change the selector (option) in the select tag  
     	   (new Select(driver.findElement(By.name(operationField)))).selectByValue(operationCondition);
        }

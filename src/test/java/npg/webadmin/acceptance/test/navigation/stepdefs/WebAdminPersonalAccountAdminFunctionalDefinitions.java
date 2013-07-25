@@ -86,8 +86,8 @@ public class WebAdminPersonalAccountAdminFunctionalDefinitions {
 		navigationService.toWebAdminPersonalAccountSearch(webDriver);
 	}
 	
-	@Then("^ensure item \"([^\"]*)\" is in the search result page$")
-	public void verifyPersonalAccountSearch(String textToVerify, List<SearchItem> searchItems) {	
+	@Then("^ensure result item is in the search result page$")
+	public void verifyPersonalAccountSearch(List<SearchItem> searchItems) {	
 		for (SearchItem item : searchItems) {
 			
 			
@@ -99,7 +99,7 @@ public class WebAdminPersonalAccountAdminFunctionalDefinitions {
 					item.fieldvalue, 
 					"//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]");
 			FieldItem fieldItem =  (new WebElementsVerificationBaseAbstract()).new FieldItem();
-			fieldItem.value = textToVerify;
+			fieldItem.value = item.result;
 			textElementsVerificationService.verifyElementText(webDriver, fieldItem);
 			navigationService.navigateToWebAdminPersonalAccountSearch(webDriver);
 		}
@@ -112,7 +112,7 @@ public class WebAdminPersonalAccountAdminFunctionalDefinitions {
 			searchService.fillAndSubmitInputField(
 					webDriver,
 					searchService.mapOperationFieldPersonalAccount(item.field),
-					null,					 
+					searchService.mapOperationConditionPersonalAccount(item.operation==null?"":item.operation),					 
 					searchService.mapInputFieldPersonalAccount(item.field),					
 					item.fieldvalue, 
 					"//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search2\"]");
