@@ -8,7 +8,7 @@ Feature: Personal Account Admin
   Scenario: 1.0 Search personal accounts using different criteria 
     Given user is logged-in as "${login.username}" password "${login.password}" for webadmin personal account admin        
     When user is on personal account search page
-    Then ensure result item is in the search result page   
+    Then ensure result items are in the user account search result page   
 	
 	  ${personal.search.scenario.user}
 
@@ -21,4 +21,11 @@ Feature: Personal Account Admin
       ${personal.search.scenario.orcid} 
        
      
-                                
+  ${at.sign}sprint-1
+  Scenario: 3.0 Subscription search 
+    Given user is logged-in as "${login.username}" password "${login.password}" for webadmin personal account admin    
+    When user is on personal account search page
+    Then ensure result items are in the subscription search result page
+       
+       ${personal.search.scenario.subscription}
+                                     

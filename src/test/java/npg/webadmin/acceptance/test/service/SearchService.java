@@ -98,11 +98,12 @@ public class SearchService {
      
     
     public String mapOperationFieldPersonalAccount(String field) { 
-    	if (field.toLowerCase().trim().equals("user id"))           { return "user_id_op";
-   		} else if (field.toLowerCase().trim().equals("email"))      { return "email_op";        	  
-   		} else if (field.toLowerCase().trim().equals("first name")) { return "fname_op"; 
-   		} else if (field.toLowerCase().trim().equals("last name"))  { return "lname_op"; 
-   		} else if (field.toLowerCase().trim().equals("eclipse id")) { return "account_user_eclipse_id_op";   		
+    	if (field.toLowerCase().trim().equals("user id"))            { return "user_id_op";
+   		} else if (field.toLowerCase().trim().equals("email"))       { return "email_op";        	  
+   		} else if (field.toLowerCase().trim().equals("first name"))  { return "fname_op"; 
+   		} else if (field.toLowerCase().trim().equals("last name"))   { return "lname_op"; 
+   		} else if (field.toLowerCase().trim().equals("eclipse id"))  { return "account_user_eclipse_id_op";
+   		} else if (field.toLowerCase().trim().equals("customer id")) { return "subid_op"; 
    		} else { return ""; } 
     	
     }
@@ -124,7 +125,8 @@ public class SearchService {
    		} else if (field.toLowerCase().trim().equals("last name"))  { return "lname";
    		} else if (field.toLowerCase().trim().equals("country"))    { return "country"; 
    		} else if (field.toLowerCase().trim().equals("eclipse id")) { return "account_user_eclipse_id";
-   		} else if (field.toLowerCase().trim().equals("orcid id"))   { return "orcid_id"; 
+   		} else if (field.toLowerCase().trim().equals("orcid id"))   { return "orcid_id";
+   		} else if (field.toLowerCase().trim().equals("customer id"))   { return "subid"; 
    		} else { return ""; }
     }
     

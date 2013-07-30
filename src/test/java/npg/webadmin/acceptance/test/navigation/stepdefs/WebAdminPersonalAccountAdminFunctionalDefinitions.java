@@ -86,7 +86,7 @@ public class WebAdminPersonalAccountAdminFunctionalDefinitions {
 		navigationService.toWebAdminPersonalAccountSearch(webDriver);
 	}
 	
-	@Then("^ensure result item is in the search result page$")
+	@Then("^ensure result items are in the user account search result page$")
 	public void verifyPersonalAccountSearch(List<SearchItem> searchItems) {	
 		for (SearchItem item : searchItems) {
 			
@@ -98,6 +98,26 @@ public class WebAdminPersonalAccountAdminFunctionalDefinitions {
 					searchService.mapInputFieldPersonalAccount(item.field), 
 					item.fieldvalue, 
 					"//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search1\"]");
+			FieldItem fieldItem =  (new WebElementsVerificationBaseAbstract()).new FieldItem();
+			fieldItem.value = item.result;
+			textElementsVerificationService.verifyElementText(webDriver, fieldItem);
+			navigationService.navigateToWebAdminPersonalAccountSearch(webDriver);
+		}
+		
+	}
+	
+	@Then("^ensure result items are in the subscription search result page$")
+	public void verifySubscriptionSearch(List<SearchItem> searchItems) {	
+		for (SearchItem item : searchItems) {
+			
+			
+			searchService.fillAndSubmitInputField(
+					webDriver, 
+					searchService.mapOperationFieldPersonalAccount(item.field), 
+					searchService.mapOperationConditionPersonalAccount(item.operation), 
+					searchService.mapInputFieldPersonalAccount(item.field), 
+					item.fieldvalue, 
+					"//input[@value=' Search ' and @type=\"SUBMIT\" and @id=\"search3\"]");
 			FieldItem fieldItem =  (new WebElementsVerificationBaseAbstract()).new FieldItem();
 			fieldItem.value = item.result;
 			textElementsVerificationService.verifyElementText(webDriver, fieldItem);
