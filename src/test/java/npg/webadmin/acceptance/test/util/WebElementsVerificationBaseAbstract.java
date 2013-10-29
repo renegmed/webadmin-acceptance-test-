@@ -3,13 +3,10 @@ package npg.webadmin.acceptance.test.util;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
-
 import npg.webadmin.acceptance.test.Constants;
-
  
 
-public abstract class WebElementsVerificationBaseAbstract {
+public class WebElementsVerificationBaseAbstract {
 	  
 	private List<SearchItem> searchItemList = null;  
 	private List<SearchItem> getSearchItemList() { return searchItemList; }
@@ -17,19 +14,33 @@ public abstract class WebElementsVerificationBaseAbstract {
 	private List<FieldItem> fieldItemList = null;  
 	private List<FieldItem> getFieldItemList() { return fieldItemList; }
   
+	private List<License> licenseList = null;  
+	private List<License> getLicenseList() { return licenseList; }
+	
 	private Map<String, String> attributes = null;
 	
 	public class SearchItem {
 	   	public String field;
 	   	public String operation;
-	   	public String fieldvalue;   
+	   	public String fieldvalue;
+	   	public String result;
+	   	public String remark;
 	}    
-	  
+	
+	public class License {
+	   	public String licenseId;
+	   	public String productCode;
+	   	public String startDate;
+	   	public String endDate;
+	   	public String remark;
+	}   
+	
 	public class FieldItem {
 	   	public String fieldname;
 	   	public String value;
 	   	public String type;
 	   	public String present;
+	   	public String remark;
 	}
 	
 	public String getAttributes(String key) {

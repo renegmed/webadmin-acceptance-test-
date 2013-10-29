@@ -3,5 +3,6 @@
 .settings/
 chromedriver.log
 webadmin_test.log
+libpeerconnection.log
 reports/
 target/

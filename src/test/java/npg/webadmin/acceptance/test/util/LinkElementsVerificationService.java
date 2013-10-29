@@ -5,15 +5,22 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import npg.webadmin.acceptance.test.Constants;
- 
+import npg.webadmin.acceptance.test.WebDriverWrapper; 
 
 public class LinkElementsVerificationService extends WebElementsVerificationBaseAbstract {
 
 	public LinkElementsVerificationService() {
 		 
 	}
+	public void verifyElementLinkText(WebDriverWrapper webDriver, String text) {
+		try{	
+			webDriver.findElement(By.xpath("//a[contains(text(), '" + text + "')]"));
+		} catch (NoSuchElementException e) { 
+		    assertTrue("  Link text '"+ text + "' should be present in the page. " , false);	    
+	   	}	
+	}
 	
-	public void verifyElementLinkText(WebDriver webDriver, FieldItem item) {
+	public void verifyElementLinkText(WebDriverWrapper webDriver, FieldItem item) {
 	   	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_ID)) {    	    		
 	   		verifyElementLinkText(webDriver, item, Constants.WITH_ATTRIBUTE_ID);		
 	   	} else if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_CLASS)) {        		 
@@ -29,7 +36,7 @@ public class LinkElementsVerificationService extends WebElementsVerificationBase
 	   	}
 	}	
 	 
-    private void verifyElementLinkText(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementLinkText(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	try {
     		if (separator==null) {    		  	
     			webDriver.findElement(By.xpath("//a[contains(text(), '" + item.value + "')]"));

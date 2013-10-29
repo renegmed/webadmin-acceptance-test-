@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import npg.webadmin.acceptance.test.Constants;
+import npg.webadmin.acceptance.test.WebDriverWrapper;
 
 public class TextElementsVerificationService extends WebElementsVerificationBaseAbstract {
 
@@ -12,7 +13,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 		
 	}
 
-	public void verifyElementText(WebDriver webDriver, FieldItem item) {
+	public void verifyElementText(WebDriverWrapper webDriver, FieldItem item) {
 	    	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_LINK_PARENT)) {    	    		
 	    		verifyElementText(webDriver, item, Constants.WITH_ATTRIBUTE_LINK_PARENT);
 	    	} else if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT)) {  
@@ -24,34 +25,48 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 	    	}
 	}	
 	 
-    private void verifyElementText(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementText(WebDriverWrapper webDriver, FieldItem item, String separator) {
+    	
+    	//System.out.println("+++++++ verifyElementText() type " + item.type + " :  " + item.value + "   separator: " + separator +
+    	//" current url: " + webDriver.getCurrentUrl());
+    	
     	try {
     		if (separator==null) {    		  	
     		    try{
-    		    	webDriver.findElement(By.xpath("//span[contains(text(), '" + item.value + "')]"));
-    		    } catch (NoSuchElementException e) {  // it could be label
+    		    	//System.out.println("   ........ td ........"); 
+    		    	webDriver.findElement(By.xpath("//td[contains(text(), '" + item.value + "')]"));
+    		    } catch (NoSuchElementException e) {  // if not td, it could be span
     		    	try {
-    		    		webDriver.findElement(By.xpath("//label[contains(text(), '" + item.value + "')]"));
-    		    	} catch (NoSuchElementException e2) { // if not label, it could be td
+    		    		//System.out.println("   ........ span ........"); 
+    		    		webDriver.findElement(By.xpath("//span[contains(text(), '" + item.value + "')]"));
+    		    	} catch (NoSuchElementException e2) { // if not span, it could be td
     		    		try {
-    		    			webDriver.findElement(By.xpath("//td[contains(text(), '" + item.value + "')]"));    		    		     
-    		    		} catch (NoSuchElementException e3) { // if not td, it could be p	 
+    		    			//System.out.println("   ........ p ........"); 
+    		    			webDriver.findElement(By.xpath("//p[contains(text(), '" + item.value + "')]"));    		    		     
+    		    		} catch (NoSuchElementException e3) { // if not p, it could be p	 
     		    			 try {
-    		    				 webDriver.findElement(By.xpath("//p[contains(text(), '" + item.value + "')]"));
-    		    			 } catch (NoSuchElementException e4) { // if not p, it could be strong
+    		    				 //System.out.println("   ........ label ........"); 
+    		    				 webDriver.findElement(By.xpath("//label[contains(text(), '" + item.value + "')]"));
+    		    			 } catch (NoSuchElementException e4) { // if not label, it could be strong
     		    				 try {
+    		    					 //System.out.println("   ........ strong ........"); 
     		    					 webDriver.findElement(By.xpath("//strong[contains(text(), '" + item.value + "')]")); 
     		    				 } catch (NoSuchElementException e5) { // if not strong, it must be em
     		    					 try {
+    		    						 //System.out.println("   ........ em ........"); 
     		    						 webDriver.findElement(By.xpath("//em[contains(text(), '" + item.value + "')]"));
     		    					 } catch (NoSuchElementException e6) { // if not em, it must be b
+    		    						 //System.out.println("   ........ b ........"); 
     		    						 webDriver.findElement(By.xpath("//b[contains(text(), '" + item.value + "')]"));
     		    					 }
     		    				 }
     		    			 }
     		    		}
     		    	}
-    		    }    		    
+    		    }
+    		    
+    		    //System.out.println("+++++++ end of verifyElementText() 1 ++++++++++++");
+    		    
     		    return;
     		}
     		
@@ -66,7 +81,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     			
     			if (separator.equals(Constants.WITH_ATTRIBUTE_LINK_PARENT)) {
     				webDriver.findElement(By.xpath("//*[contains(text(), '" + parts[0] + 
-    	    				"')][ancestor::a]"));
+    	    				"')][ancestor::a]"));    			
     			} else if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT) ||
     					item.value.trim().contains(Constants.FOLLOWING_SIBLING_TEXT)) {  		    			
     				webDriver.findElement(By.xpath("//td[contains(text(), '" + parts[0] + 
@@ -74,7 +89,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     			} else {
     				webDriver.findElement(By.xpath("//span[contains(text(), '" + parts[0] + 
     	    		  		"')][ancestor::a[@href='" + parts[1] + "']]")); 
-    				  
+    				
     			}  
     		} else {     		
     			//System.out.println("XPATH: SEPARATOR: " + separator + "\n" + "//span[contains(text(), '" + parts[0] + 
@@ -94,11 +109,13 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
 		       assertTrue("Text '"+ item.value + "' should be present in the page. " , false);
     	   } 
     	}
+    	
+    	//System.out.println("+++++++ end of verifyElementText() 2. ++++++++++++");
+    	
     }
-        
    
     
-    public void verifyElementDt(WebDriver webDriver, FieldItem item) {
+    public void verifyElementDt(WebDriverWrapper webDriver, FieldItem item) {
     	try {    		
     		webDriver.findElement(By.xpath("//dt[contains(text(), '" + item.value + "')]"));
   		  if (item.present.trim().toLowerCase().equals(Constants.NO)) {
@@ -121,12 +138,12 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     		}  
     	} catch (NoSuchElementException e) {    		    	
        	    if (item.present.trim().toLowerCase().equals(Constants.YES)) {
-       	    	assertTrue("  Header 2 text '"+ item.value + "' should not be present in the page." , false);
+       	    	assertTrue("  Header 2 text '"+ item.value + "' should be present in the page." , false);
        	    }	     
 	    }    	
     }
   
-    public void verifyElementDd(WebDriver webDriver, FieldItem item) {    	
+    public void verifyElementDd(WebDriverWrapper webDriver, FieldItem item) {    	
     	if (item.value.trim().contains(Constants.PRECEDING_SIBLING_TEXT)) {  
     		verifyElementDd(webDriver, item, Constants.PRECEDING_SIBLING_TEXT);    	  
     	} else if (item.value.trim().contains(Constants.FOLLOWING_SIBLING_TEXT)) {          
@@ -136,7 +153,7 @@ public class TextElementsVerificationService extends WebElementsVerificationBase
     	}   
     }    
     
-    private void verifyElementDd(WebDriver webDriver, FieldItem item, String separator) {
+    private void verifyElementDd(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	try {
     		if (separator == null) {
     			webDriver.findElement(By.xpath("//dd[contains(text(), '" + item.value +  "')]"));

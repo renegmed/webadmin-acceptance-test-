@@ -7,10 +7,11 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 //import org.openqa.selenium.WebElement;
 import npg.webadmin.acceptance.test.Constants;
+import npg.webadmin.acceptance.test.WebDriverWrapper;
 
 public class InputElementsVerificationService extends WebElementsVerificationBaseAbstract { 
 
-	public void verifyElementInputField(WebDriver webDriver, FieldItem item) {
+	public void verifyElementInputField(WebDriverWrapper webDriver, FieldItem item) {
 	    	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_NAME)) {    	    		
 	    		verifyElementInputField(webDriver, item, Constants.WITH_ATTRIBUTE_NAME);
 	    	} else if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_CLASS)) {    	    		
@@ -30,7 +31,7 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
 	    	}
 	}
 	
-	protected void verifyElementInputField(WebDriver webDriver, FieldItem item, String separator) {
+	protected void verifyElementInputField(WebDriverWrapper webDriver, FieldItem item, String separator) {
 	   	try {   
 	   		if (separator == null) {
 	   			assertTrue("Input field '"+ item.value + "' not valid. Nothing to identify with", false );
@@ -65,7 +66,7 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
 	   	}
 	}
 	
-	public void verifyElementInputCheckbox(WebDriver webDriver, FieldItem item) {
+	public void verifyElementInputCheckbox(WebDriverWrapper webDriver, FieldItem item) {
 	    	if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_NAME)) {    	    		
 	    		verifyElementInputCheckbox(webDriver, item, Constants.WITH_ATTRIBUTE_NAME);
 	    	} else if (item.value.trim().contains(Constants.WITH_ATTRIBUTE_CLASS)) {    	    		
@@ -81,7 +82,7 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
 	    	}
 	}  
 	   
-    protected void verifyElementInputCheckbox(WebDriver webDriver, FieldItem item, String separator) {
+    protected void verifyElementInputCheckbox(WebDriverWrapper webDriver, FieldItem item, String separator) {
     	try {   
     		if (separator == null) {
     			assertTrue("Input checkbox '"+ item.value + "' not valid. Nothing to identify with", false );
@@ -111,7 +112,9 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
     	}
     }    
 
-    public void verifyElementSelectOption(WebDriver webDriver, FieldItem item) {    	
+    public void verifyElementSelectOption(WebDriverWrapper webDriver, FieldItem item) {
+    	//System.out.println("+++++ verifying element select option");
+    	
     	if (item.value.trim().contains(Constants.WITH_SELECT_PARENT_NAME)) {  
     		verifyElementSelectOption(webDriver, item, Constants.WITH_SELECT_PARENT_NAME);    	  
     	} else if (item.value.trim().contains(Constants.WITH_SELECT_PARENT_NAME_SELECTED)) {          
@@ -121,7 +124,9 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
     	}   
     }
     
-    protected void verifyElementSelectOption(WebDriver webDriver, FieldItem item, String separator) {
+    protected void verifyElementSelectOption(WebDriverWrapper webDriver, FieldItem item, String separator) {
+    	//System.out.println("+++++ verify Element Select Option   item.value: " + item.value + "   item.fieldname: " + item.fieldname + 
+    	//		"  separator: " + (separator==null?"null":separator));
     	try {
     		if (separator == null) {
     			webDriver.findElement(By.xpath("//option[contains(text(), '" + item.value +  "')]"));
@@ -144,8 +149,5 @@ public class InputElementsVerificationService extends WebElementsVerificationBas
 			}
     	}
     }
-    
-
-    
-    
+     
 }
