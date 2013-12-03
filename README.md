@@ -39,3 +39,22 @@ only the scenarios with @sprint-7 will be ran. However if you call this:
 
 even though the tag @sprint-7 is still present in the selected scenarios, all the scenarios will be ran.  
 
+
+To Run Locally
+
+Need to download chrome browser plugin driver http://chromedriver.storage.googleapis.com/index.html to test against chrome browser. The driver
+path should be provided in test_data.properties 
+
+Then call
+
+mvn clean resources:resources -Denvironment=test -Dbrowser=chrome test
+
+
+
+
+Jenkins config
+
+Build shell
+execute   Xvfb :1 -screen 0 1024x768x24 &
+
+
